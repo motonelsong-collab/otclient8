@@ -1,0 +1,48 @@
+PokedexStatistic < UIWidget
+  size: 360 25
+  phantom: true
+
+  Label
+    id: name
+    text-auto-resize: true
+    anchors.right: next.left
+    anchors.verticalCenter: parent.verticalCenter
+    margin-right: 8
+
+  Panel
+    anchors.fill: next
+    background-color: #575757
+
+  ProgressBar
+    id: progress
+    width: 165
+    anchors.right: parent.right
+    anchors.verticalCenter: parent.verticalCenter
+    margin-right: 45
+    background-color: #427afa
+
+Panel
+  id: panInfo
+  size: 200 200
+  margin-left: 3 
+
+  ScrollablePanel
+    id: uiStatisticList
+    anchors.fill: parent
+    anchors.right: next.left
+    anchors.bottom: next.bottom
+    vertical-scrollbar: uiStatisticScroll
+    layout: verticalBox
+
+  VerticalScrollBar
+    id: uiStatisticScroll
+    anchors.top: parent.top
+    anchors.right: parent.right
+    anchors.bottom: parent.bottom
+    pixels-scroll: true
+    margin-right: -3
+    step: 14
+    pixels-scroll: true
+    visible: false
+
+

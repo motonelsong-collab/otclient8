@@ -1,0 +1,87 @@
+EnterGameWindow
+  id: enterGame
+  @onEnter: EnterGame.doLogin()
+
+  UIWidget
+    id: serverLogo
+    anchors.horizontalCenter: parent.horizontalCenter
+    anchors.bottom: parent.top
+    margin-bottom: 18
+    size: 205 75
+    image-source: /images/ui/logo
+    image-smooth: true
+    image-fixed-ratio: true
+    focusable: false
+    phantom: true
+
+  MenuLabel
+    !text: tr('Account name')
+    anchors.left: parent.left
+    anchors.top: parent.top
+    margin-top: 14
+    text-auto-resize: true
+
+  TextEdit
+    id: accountNameTextEdit
+    anchors.left: parent.left
+    anchors.right: parent.right
+    anchors.top: prev.bottom
+    margin-top: 2
+
+  MenuLabel
+    !text: tr('Password')
+    anchors.left: prev.left
+    anchors.top: prev.bottom
+    margin-top: 8
+    text-auto-resize: true
+
+  PasswordTextEdit
+    id: accountPasswordTextEdit
+    anchors.left: parent.left
+    anchors.right: parent.right
+    anchors.top: prev.bottom
+    margin-top: 2
+
+  HorizontalSeparator
+    anchors.left: parent.left
+    anchors.right: parent.right
+    anchors.top: prev.bottom
+    margin-top: 12
+
+  CheckBox
+    id: rememberPasswordBox
+    !text: tr('Remember password')
+    !tooltip: tr('Remember account and password when starts client')
+    anchors.left: parent.left
+    anchors.right: parent.right
+    anchors.top: prev.bottom
+    margin-top: 9
+
+  HorizontalSeparator
+    anchors.left: parent.left
+    anchors.right: parent.right
+    anchors.top: prev.bottom
+    margin-top: 9
+
+  Button
+    !text: tr('Login')
+    anchors.left: parent.left
+    anchors.right: parent.right
+    anchors.top: prev.bottom
+    margin-top: 10
+    margin-left: 50
+    margin-right: 50
+    @onClick: EnterGame.doLogin()
+
+  Button
+    id: createAccountButton
+    !text: tr('Criar Conta')
+    anchors.left: parent.left
+    anchors.right: parent.right
+    anchors.top: prev.bottom
+    margin-top: 8
+    margin-left: 50
+    margin-right: 50
+    @onClick: EnterGame.showCreateAccountWindow()
+
+

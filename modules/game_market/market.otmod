@@ -1,0 +1,9 @@
+Module
+  name: game_market
+  description: Market
+  author: Gengo
+  dependencies: [ client_styles, game_interface ]
+  sandboxed: true
+  scripts: [ marketprotocol, market, helpers ]
+  @onLoad: init()
+  @onUnload: terminate()

@@ -1,0 +1,288 @@
+NpcDialogTitle < Label
+  font: verdana-11px-monochrome
+  color: #f7f0d0
+  text-auto-resize: true
+
+NpcDialogText < Label
+  font: verdana-11px-monochrome
+  color: #f6f1e3
+  text-wrap: true
+  text-auto-resize: true
+
+NpcDialogSmallButton < Button
+  height: 24
+  width: 72
+  background-color: #60543c
+  border-width: 1
+  border-color: #d1b97d
+  color: #f6f1e3
+  text-offset: 0 1
+  change-cursor-image: true
+  cursor: pointer
+
+  $hover:
+    background-color: #726345
+
+  $pressed:
+    background-color: #564931
+    text-offset: 1 2
+
+NpcDialogPanel < Panel
+  background-color: #231f17aa
+  border-width: 1
+  border-color: #8b7a52
+
+NpcDialogItemSlot < UIItem
+  size: 34 34
+  margin-left: 3
+  margin-right: 3
+  virtual: true
+  show-count: true
+
+NpcDialogPokemonIcon < NpcDialogPanel
+  size: 42 42
+  margin-left: 3
+  margin-right: 3
+
+  UIWidget
+    id: sprite
+    size: 34 34
+    anchors.centerIn: parent
+    image-source: /modules/game_npcdialog/images/1
+    phantom: true
+    visible: false
+
+  UICreature
+    id: creature
+    size: 34 34
+    anchors.centerIn: parent
+    fixed-creature-size: true
+    visible: false
+    phantom: true
+
+  Label
+    id: amount
+    anchors.right: parent.right
+    anchors.bottom: parent.bottom
+    margin-right: 2
+    margin-bottom: 1
+    font: verdana-11px-monochrome
+    color: #ffffff
+    phantom: true
+    visible: false
+
+NpcDialogTextEditRow < NpcDialogPanel
+  height: 58
+  margin-top: 4
+
+  NpcDialogText
+    id: label
+    anchors.top: parent.top
+    anchors.left: parent.left
+    anchors.right: parent.right
+    margin-top: 6
+    margin-left: 8
+    margin-right: 8
+    visible: false
+
+  TextEdit
+    id: input
+    height: 24
+    anchors.left: parent.left
+    anchors.right: confirm.left
+    anchors.bottom: parent.bottom
+    margin-left: 8
+    margin-right: 6
+    margin-bottom: 8
+
+  NpcDialogSmallButton
+    id: confirm
+    anchors.right: parent.right
+    anchors.bottom: parent.bottom
+    margin-right: 8
+    margin-bottom: 8
+    text: Enviar
+
+NpcDialogCollectionRow < NpcDialogPanel
+  height: 82
+  margin-top: 4
+
+  NpcDialogText
+    id: title
+    anchors.top: parent.top
+    anchors.left: parent.left
+    anchors.right: parent.right
+    margin-top: 6
+    margin-left: 8
+    margin-right: 8
+
+  UIScrollArea
+    id: content
+    height: 36
+    anchors.left: parent.left
+    anchors.right: parent.right
+    anchors.bottom: parent.bottom
+    margin-left: 6
+    margin-right: 6
+    margin-bottom: 16
+    horizontal-scrollbar: scroll
+    layout:
+      type: horizontalBox
+
+  HorizontalScrollBar
+    id: scroll
+    height: 8
+    anchors.left: parent.left
+    anchors.right: parent.right
+    anchors.bottom: parent.bottom
+    margin-left: 6
+    margin-right: 6
+    margin-bottom: 6
+    step: 24
+    pixels-scroll: true
+
+UIWindow
+  id: npcDialog
+  size: 518 158
+  image-source: images/background
+  image-border: 50
+  anchors.verticalCenter: parent.verticalCenter
+  anchors.horizontalCenter: parent.horizontalCenter
+  visible: false
+  @onEscape: modules.game_npcdialog.close(true)
+
+  UIWidget
+    id: baseOutfit
+    size: 96 96
+    anchors.top: parent.top
+    anchors.left: parent.left
+    margin-top: 20
+    margin-left: 18
+
+    UIWidget
+      id: base
+      size: 62 62
+      anchors.bottom: parent.bottom
+      anchors.horizontalCenter: parent.horizontalCenter
+      margin-bottom: 10
+      image-source: images/base_ball
+      phantom: true
+
+    UICreature
+      id: NpcOutfit
+      size: 40 40
+      anchors.horizontalCenter: parent.horizontalCenter
+      anchors.verticalCenter: base.verticalCenter
+      margin-top: -8
+      phantom: true
+      old-scaling: true
+
+    UIWidget
+      id: image
+      size: 72 72
+      anchors.horizontalCenter: parent.horizontalCenter
+      anchors.verticalCenter: base.verticalCenter
+      margin-top: -10
+      image-source: /modules/game_npcdialog/images/1
+      visible: false
+
+  NpcDialogTitle
+    id: NpcName
+    anchors.top: baseOutfit.top
+    anchors.left: baseOutfit.right
+    anchors.right: closeButton.left
+    margin-left: 14
+    margin-right: 12
+
+  UIScrollArea
+    id: PanelDialog
+    size: 380 32
+    anchors.top: NpcName.bottom
+    anchors.left: NpcName.left
+    anchors.right: parent.right
+    margin-top: 10
+    margin-right: 18
+
+    NpcDialogText
+      id: description
+      anchors.top: parent.top
+      anchors.left: parent.left
+      anchors.right: parent.right
+
+  NpcDialogPanel
+    id: PanelExtrasWrapper
+    size: 380 62
+    anchors.top: PanelDialog.bottom
+    anchors.left: PanelDialog.left
+    anchors.right: PanelDialog.right
+    margin-top: 8
+    visible: false
+
+    UIScrollArea
+      id: PanelExtras
+      anchors.top: parent.top
+      anchors.bottom: parent.bottom
+      anchors.left: parent.left
+      anchors.right: parent.right
+      margin-top: 6
+      margin-left: 6
+      margin-right: 6
+      margin-bottom: 16
+      horizontal-scrollbar: ExtraScrollBar
+      layout:
+        type: horizontalBox
+
+    HorizontalScrollBar
+      id: ExtraScrollBar
+      height: 8
+      anchors.left: parent.left
+      anchors.right: parent.right
+      anchors.bottom: parent.bottom
+      margin-left: 6
+      margin-right: 6
+      margin-bottom: 6
+      step: 24
+      pixels-scroll: true
+
+  UIScrollArea
+    id: PanelSelections
+    size: 380 0
+    anchors.top: PanelExtrasWrapper.bottom
+    anchors.left: PanelDialog.left
+    anchors.right: parent.right
+    margin-top: 8
+    margin-right: 18
+    vertical-scrollbar: ScrollBarDialog
+    auto-focus: first
+    layout:
+      type: verticalBox
+      spacing: 2
+
+  VerticalScrollBar
+    id: ScrollBarDialog
+    anchors.top: PanelSelections.top
+    anchors.bottom: PanelSelections.bottom
+    anchors.left: PanelSelections.right
+    margin-left: 4
+    step: 24
+    pixels-scroll: true
+    visible: false
+
+  UIButton
+    id: closeButton
+    size: 15 15
+    image-source: /images/ui/miniwindow_buttons
+    image-clip: 30 0 15 15
+    anchors.top: parent.top
+    anchors.right: parent.right
+    margin-top: 10
+    margin-right: 10
+    change-cursor-image: true
+    cursor: pointer
+    @onClick: modules.game_npcdialog.close(true)
+
+    $hover:
+      image-clip: 30 15 15 15
+
+    $pressed:
+      image-clip: 30 30 15 15

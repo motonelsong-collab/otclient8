@@ -1,0 +1,8 @@
+Module
+  name: game_custompokemon
+  description: Pokemon customization window
+  author: PStory
+  sandboxed: true
+  scripts: [ custompokemon ]
+  @onLoad: init()
+  @onUnload: terminate()

@@ -1,0 +1,56 @@
+MainHeadlessWindow
+  id: tvChannelsWindow
+  size: 461 500
+  !text: tr("TV Channels")
+  @onEscape: self:hide() unlockWalk()
+
+  VerticalScrollBar
+    id: channelsPanelScrollBar
+    step: 14
+    pixels-scroll: true
+    anchors.right: parent.right
+    anchors.top: parent.top
+    anchors.bottom: searchTextEdit.top
+    margin: 0 0 12 0
+
+  ScrollablePanel
+    id: channelsPanel
+    vertical-scrollbar: channelsPanelScrollBar
+    anchors.top: prev.top
+    anchors.left: parent.left
+    anchors.right: prev.left
+    anchors.bottom: prev.bottom
+    padding: 2
+    layout:
+      type: verticalBox
+
+  TextEdit
+    id: searchTextEdit
+    anchors.left: parent.left
+    anchors.bottom: next.top
+    anchors.right: parent.right
+    margin-bottom: 12
+    !placeholder: tr('Search')
+    @onTextChange: |
+      function(self, text, oldText)
+        self.placeholderLabel:setVisible(text:trim() == 0)
+        modules.game_tv.tvChannelsSearchOnTextChange(self, text, oldText) 
+      end
+
+  ButtonBlueSmall
+    id: watchButton
+    !text: tr("Watch")
+    anchors.right: parent.horizontalCenter
+    anchors.bottom: parent.bottom
+    anchors.left: parent.left
+    margin-right: 5
+    @onClick: function(...) modules.game_tv.tvChannelsWatchOnClick(...) end
+
+  ButtonRedSmall
+    id: cancelButton
+    !text: tr("Close")
+    anchors.left: parent.horizontalCenter
+    anchors.bottom: parent.bottom
+    anchors.right: parent.right
+    margin-left: 5
+    @onClick: self:getParent():hide() unlockWalk()

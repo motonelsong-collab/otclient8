@@ -1,0 +1,10 @@
+Module
+  name: game_pokeinicial
+  description: Pokemon Inicial
+  author: Gengo
+  dependencies: [ client_styles ]
+  sandboxed: true
+  scripts: [ pokeinicial ]
+  @onLoad: init()
+  @onUnload: terminate()
+

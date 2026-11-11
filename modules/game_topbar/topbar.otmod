@@ -1,0 +1,11 @@
+Module
+  name: game_topbar
+  description: Customizable Top Bar from Cipsoft's Tibia 12 Client
+  author: Vithrax
+  website: discord_Vithrax#5814
+  dependencies: [ client_styles, game_interface ]
+  sandboxed: true
+  autoload: true
+  scripts: [ topbar ]
+  @onLoad: init()
+  @onUnload: terminate()

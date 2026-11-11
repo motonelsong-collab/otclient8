@@ -1,0 +1,57 @@
+PokedexDrops < Panel
+  height: 40
+  background-color: #323232
+
+  $alternate:
+    background-color: #212121
+
+  UIItem
+    id: item
+    size: 33 33
+    anchors.verticalCenter: parent.verticalCenter
+    anchors.left: parent.left
+    margin-left: 8
+    virtual: true
+
+  Label
+    id: name
+    anchors.top: prev.top
+    anchors.left: prev.right
+    margin-left: 2
+    text-auto-resize: true
+
+  Label
+    id: count
+    anchors.top: prev.bottom
+    anchors.left: prev.left
+    margin-top: 2
+    text-auto-resize: true
+
+  Label
+    id: chance
+    anchors.verticalCenter: parent.verticalCenter
+    anchors.right: parent.right
+    margin-right: 10
+    text-auto-resize: true
+    color: #FFFFFF
+
+    $on:
+      color: #EBA434
+Panel
+  id: panDrops
+  size: 200 200
+
+  TextList
+    id: uiDropsList
+    anchors.fill: parent
+    anchors.right: next.left
+    vertical-scrollbar: uiDopsScroll
+    
+  VerticalScrollBar
+    id: uiDopsScroll
+    anchors.top: parent.top
+    anchors.bottom: parent.bottom
+    anchors.right: parent.right
+    margin-right: -3
+    step: 14
+    pixels-scroll: true

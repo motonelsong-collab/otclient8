@@ -1,0 +1,276 @@
+local OPCODE_NPC = 54
+local isAnimating = false
+local currentAnimation = nil
+local PanelSize = 0
+local gameInterface = modules.game_interface
+local speedDialog = {
+  ["lento"] = 20,
+  ["medio"] = 70,
+  ["rapido"] = 150,
+  ["instantaneo"] = 1000,
+}
+
+function getOpCode(protocol, opcode, buffer)
+    local status, json_data =
+        pcall(
+            function()
+                return json.decode(buffer)
+            end
+        )
+    if not status or not json_data then
+        return false
+    end
+	print("hmm")
+  doStartNpcDialog(json_data)
+end
+
+function init()
+  NpcWindow = g_ui.loadUI('npcdialog', modules.game_interface.getRootPanel())
+  npcOutfit = NpcWindow.baseOutfit.NpcOutfit
+  npcName = NpcWindow.NpcName
+  npcImage = NpcWindow.baseOutfit.image
+  baseNpc = NpcWindow.baseOutfit.base
+  PanelDialog = NpcWindow.PanelDialog
+  PanelSelections = NpcWindow.PanelSelections
+  description = PanelDialog.description
+  NpcWindow:hide()
+  ProtocolGame.registerExtendedOpcode(OPCODE_NPC, getOpCode)
+end
+
+function doStartNpcDialog(data)
+  local outfit = data.npcInfo.outfit
+  outfit.type = data.npcInfo.outfit.lookType
+  local name = data.npcInfo.NpcName.name
+  local color = data.npcInfo.NpcName.color
+  local image = data.npcInfo.image
+  local dialogs = data.dialog
+  local buttons = data.Buttons
+  local speedOption = speedDialog["rapido"]
+  local typeCall = data.npcInfo.type
+
+  npcName:setText(name)
+    local defaultColor = "#ffffff"
+    local color = color or defaultColor
+
+    npcName:setColor(color)
+
+    local imagePath = image and ("/images/npcdialog/"..image) or "/images/ui/clear"
+    
+    if not image then
+      outfit = npcOutfit:setOutfit(outfit)
+    end
+    
+    npcImage:setVisible(image)
+    npcOutfit:setVisible(not image)
+    baseNpc:setVisible(not image)
+    
+    if image then
+      npcImage:setImageSource(imagePath)
+    end
+  
+  PanelSelections:destroyChildren()
+  PanelSize = 0
+  if buttons then
+      for i, button in ipairs(buttons) do
+        if button.type == "Button" then
+          local buttonWidget = g_ui.createWidget('SelectionsWindow', PanelSelections)
+        buttonWidget:setText(tr(button.text))
+        buttonWidget.onClick = function()
+          g_game.talkChannel(MessageModes.NpcTo, 0, button.text)
+        end
+        PanelSize = PanelSize + 22
+        elseif button.type == "TextEdit" then
+          local buttonWidget = g_ui.createWidget('SelectionsWindow', PanelSelections)
+      buttonWidget:setSize("410 40")
+          local TextEditWidget = g_ui.createWidget('TextEdit', buttonWidget)
+        TextEditWidget:addAnchor(AnchorTop, 'parent', AnchorTop)
+        TextEditWidget:addAnchor(AnchorLeft, 'parent', AnchorLeft)
+          TextEditWidget:setWidth(350)
+          TextEditWidget:setId('TextEdit')
+          TextEditWidget:setMarginTop(9)
+          TextEditWidget:setMarginLeft(15)
+      if button.Placeholder then
+            TextEditWidget:setPlaceholder(button.Placeholder)
+      end
+        buttonWidget.onClick = function()
+        local textEditLabel = buttonWidget.TextEdit:getText()
+          g_game.talkChannel(MessageModes.NpcTo, 0, textEditLabel)
+        end
+        PanelSize = PanelSize + 40
+        elseif button.type == "Reward" then
+          local buttonWidget = g_ui.createWidget('SelectionsWindow', PanelSelections)
+        buttonWidget:setText(tr(button.text))
+        buttonWidget:setTextOffset("15 -30")
+      buttonWidget:setSize("410 70")
+          local RewardWindow = g_ui.createWidget('RewardsNPCWindow', buttonWidget)
+        RewardWindow:addAnchor(AnchorTop, 'parent', AnchorTop)
+        RewardWindow:addAnchor(AnchorLeft, 'parent', AnchorLeft)
+          RewardWindow:setWidth(350)
+          RewardWindow:setId('RewardWindow')
+          RewardWindow:setMarginTop(30)
+          RewardWindow:setMarginLeft(15)
+          for j, reward in ipairs(button.rewards) do
+            local Reward = g_ui.createWidget('RewardNPCItem', RewardWindow)
+            Reward:setItemId(reward.item)
+            Reward:setShowCount(false)
+      if reward.count > 1 then
+              Reward.count:setText(reward.count.."x")
+      end
+          end
+        PanelSize = PanelSize + 75
+        elseif button.type == "Defeat" then
+          local buttonWidget = g_ui.createWidget('SelectionsWindow', PanelSelections)
+        buttonWidget:setText(tr(button.text))
+        buttonWidget:setTextOffset("15 -30")
+      buttonWidget:setSize("410 70")
+          local DefeatWindow = g_ui.createWidget('DefeatPokesNpcWindow', buttonWidget)
+        DefeatWindow:addAnchor(AnchorTop, 'parent', AnchorTop)
+        DefeatWindow:addAnchor(AnchorLeft, 'parent', AnchorLeft)
+          DefeatWindow:setWidth(350)
+          DefeatWindow:setId('DefeatWindow')
+          DefeatWindow:setMarginTop(30)
+          DefeatWindow:setMarginLeft(15)
+          for j, creature in ipairs(button.creatures) do
+            local Reward = g_ui.createWidget('DefeatPokesByNpc', DefeatWindow)
+      if creature.count > 1 then
+              Reward.count:setText(creature.count.."x") 
+      end
+            pokemon.creature:setImageSource("/pokemon/sprites/sprites/" .. creature.id)--E:\Pokemon Friends\data\pokemon\regular
+            Reward.creature:setTooltip(creature.name)
+          end
+        PanelSize = PanelSize + 75
+        elseif button.type == "PokeStarter" then
+          local buttonWidget = g_ui.createWidget('SelectionsWindow', PanelSelections)
+      buttonWidget:setSize("410 30")
+      buttonWidget.onClick = function()
+          g_game.talkChannel(MessageModes.NpcTo, 0, button.poke)
+        end
+          local pokemon = g_ui.createWidget('StarterNpc', buttonWidget)
+        pokemon:addAnchor(AnchorTop, 'parent', AnchorTop)
+        pokemon:addAnchor(AnchorLeft, 'parent', AnchorLeft)
+          pokemon:setId('pokemon')
+          pokemon:setMarginTop(-6)
+          pokemon.creature:setImageSource("/pokemon/sprites/sprites/" .. button.id)
+      pokemon.count:setText(button.poke) 
+        PanelSize = PanelSize + 35
+        end
+    if i == #buttons then
+          PanelSelections:setHeight(PanelSize)
+    end
+      end
+  end
+  
+  if dialogs then
+    doSetDescriptionForNpc(dialogs, 150, speedOption)
+  end
+  
+  if typeCall == "HiNpc" then
+      show()
+  end
+end
+
+
+function updateText(description, text, speed, startTime, index)
+    local currentTime = os.clock()
+    if currentTime - startTime >= 1 / speed then
+        local currentText = string.sub(text, 1, index)
+        description:setText(currentText)
+        index = index + 1
+        startTime = currentTime
+    end
+    if index <= #text then
+        currentAnimation = scheduleEvent(function() updateText(description, text, speed, startTime, index) end)
+    else
+        isAnimating = false
+        currentAnimation = nil
+    end
+end
+function doSetDescriptionForNpc(text, delay, speed)
+    if isAnimating then
+        if currentAnimation then
+            currentAnimation:cancel()
+        end
+    else
+        isAnimating = true
+    end
+    local textSize = calculateDialogHeight(text) + 10
+    description:setHeight(textSize)
+    PanelDialog:setHeight(textSize)
+  
+  local MainWindowSize = 70 + textSize + PanelSize
+  
+    NpcWindow:setHeight(MainWindowSize)
+    currentAnimation = scheduleEvent(function() updateText(description, text, speed, os.clock(), 1) end, delay)
+end
+
+function calculateDialogHeight(text)
+    local maxCharsPerLine = 70
+    local lineHeight = 16
+    local numLines = math.ceil(string.len(text) / maxCharsPerLine)
+    local height = numLines * lineHeight
+
+    return height
+end
+function countLetters(text)
+  local letterCount = 0
+  for i = 1, #text do
+    local c = string.sub(text, i, i)
+    if c ~= " " then -- conta apenas letras (ignora espaços em branco)
+      letterCount = letterCount + 1
+    end
+  end
+  return letterCount * 9
+end
+
+
+function close()
+  if NpcWindow:isVisible() then
+    g_effects.fadeOut(NpcWindow, 350)
+    scheduleEvent(function() 
+      NpcWindow:hide()
+      description:setText("")
+      PanelSelections:destroyChildren()
+    end, 400)
+  -- gameInterface.bindWalkKey("W", North)
+  -- gameInterface.bindWalkKey("D", East)
+  -- gameInterface.bindWalkKey("S", South)
+  -- gameInterface.bindWalkKey("A", West)
+  end
+end
+function show()
+  NpcWindow:show()
+  g_effects.fadeIn(NpcWindow, 350)
+  -- gameInterface.unbindWalkKey("W")
+  -- gameInterface.unbindWalkKey("D")
+  -- gameInterface.unbindWalkKey("S")
+  -- gameInterface.unbindWalkKey("A")
+end
+
+function terminate() 
+  ProtocolGame.unregisterExtendedOpcode(OPCODE_NPC)
+  NpcWindow:destroy()
+  disconnect(g_game, { onGameEnd = function() NpcWindow:hide() end })
+end
+
+function getNewHighlightedText(text, color, highlightColor)
+  local tmpData = {}
+  
+  for i, part in ipairs(text:split("{")) do
+    if i == 1 then
+      table.insert(tmpData, part)
+      table.insert(tmpData, color)
+    else
+      for j, part2 in ipairs(part:split("}")) do
+        if j == 1 then
+          table.insert(tmpData, part2)
+          table.insert(tmpData, highlightColor)
+        else
+          table.insert(tmpData, part2)
+          table.insert(tmpData, color)
+        end
+      end
+    end
+  end
+
+  return tmpData
+end

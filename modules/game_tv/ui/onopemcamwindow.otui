@@ -1,0 +1,28 @@
+MainHeadlessWindow
+  size: 358 165
+  !text: tr('Digite o nome do seu canal')
+  @onEnter: modules.game_viplist.addVip()
+  @onEscape: modules.game_viplist.destroyAddWindow()
+
+  TextEdit
+    id: channelNameTextEdit
+    anchors.top: parent.top
+    anchors.left: parent.left
+    anchors.right: parent.right
+    !placeholder: tr('Nome do canal') .. "..." 
+
+  ButtonBlueSmall
+    id: okButton
+    !text: tr('Ok')
+    anchors.right: parent.horizontalCenter
+    anchors.bottom: parent.bottom
+    anchors.left: parent.left
+    margin-right: 5
+
+  ButtonRedSmall
+    id: cancelButton
+    !text: tr('Cancel')
+    anchors.left: parent.horizontalCenter
+    anchors.bottom: parent.bottom
+    anchors.right: parent.right
+    margin-left: 5

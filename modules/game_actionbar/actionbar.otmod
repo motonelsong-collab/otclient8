@@ -1,0 +1,8 @@
+Module
+  name: game_actionbar
+  author: https://github.com/Vithrax/
+  dependencies: [ client_styles, game_interface ]
+  sandboxed: true
+  @onLoad: init()
+  @onUnload: terminate()
+  scripts: [ actionbar ]

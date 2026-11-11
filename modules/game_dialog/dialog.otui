@@ -1,0 +1,145 @@
+DialogTitleLabel < Label
+  font: DMSans-20px-bold
+  color: #0466C8
+  text-auto-resize: true
+
+DialogMessageLabel < Label
+  font: DMSans-12px-regular
+  color: #f1f1f1
+  text-auto-resize: true
+  text-wrap: true
+
+PokemonDialog < UICreature
+  size: 36 36
+  text-align: bottomRight
+
+  $!first:
+    margin-left: 3
+
+ItemDialog < UIItem
+  size: 34 34
+  font: DMSans-12px-regular
+  virtual: true
+
+  $!first:
+    margin-left: 3
+
+OptionDialog < RadioButton
+  @onClick: |
+    function(selectedWidget)
+      local function getReplyText(widget)
+        local text = widget and widget:getText() or ''
+        text = text:lower():gsub('[%{%}]', ''):gsub('^%s+', ''):gsub('%s+$', '')
+        return text
+      end
+
+      local parent = selectedWidget:getParent()
+      local replyText = getReplyText(selectedWidget)
+      if selectedWidget == parent.selectedWidget then
+        if replyText ~= '' then
+          g_game.talkChannel(MessageModes.NpcTo, 0, replyText)
+        end
+        return
+      end
+
+      local previousSelectedWidget = parent.selectedWidget
+      parent.selectedWidget = selectedWidget
+
+      if previousSelectedWidget then
+        previousSelectedWidget:setChecked(false)
+      end
+
+      if selectedWidget then
+        selectedWidget:setChecked(true)
+        if replyText ~= '' then
+          g_game.talkChannel(MessageModes.NpcTo, 0, replyText)
+        end
+      end
+    end
+
+  $!first:
+    margin-top: 8
+
+  $hover:
+    image-color: #0466C8
+    color: #FFFFFF
+    image-clip: 0 20 20 20
+
+DialogWindow < MainWindow
+  size: 600 120
+  anchors.centerIn: parent
+  padding: 14 16
+  @onClose: modules.game_dialog.onDialogGameEnd() g_game.talkChannel(MessageModes.NpcTo, 0, "bye")
+  @onEscape: modules.game_dialog.onDialogGameEnd() g_game.talkChannel(MessageModes.NpcTo, 0, "bye")
+
+  UIWidget
+    size: 32 32
+    anchors.top: parent.top
+    anchors.left: parent.left
+    image-source: /images/game/dialog/icon
+
+  DialogTitleLabel
+    id: title
+    anchors.verticalCenter: prev.verticalCenter
+    anchors.left: prev.right
+    margin-left: 10
+
+  DialogMessageLabel
+    id: message
+    anchors.top: prev.bottom
+    anchors.left: parent.left
+    anchors.right: parent.right
+    margin-top: 10
+
+  HorizontalSeparator
+    anchors.top: prev.bottom
+    anchors.left: parent.left
+    anchors.right: parent.right
+    margin-top: 10
+
+  UIScrollArea
+    id: extra
+    height: 0
+    anchors.top: prev.bottom
+    anchors.left: prev.left
+    anchors.right: prev.right
+    margin: 0 2 0 2
+    layout: horizontalBox
+    horizontal-scrollbar: extraScroll
+
+    $on:
+      height: 34
+      margin-top: 12
+
+  HorizontalScrollBar
+    id: extraScroll
+    height: 0
+    anchors.top: prev.bottom
+    anchors.left: prev.left
+    anchors.right: prev.right
+    margin-top: 8
+    step: 20
+    pixels-scroll: true
+
+    $on:
+      height: 13
+
+  UIScrollArea
+    id: options
+    anchors.top: prev.bottom
+    anchors.left: prev.left
+    anchors.right: next.left
+    anchors.bottom: parent.bottom
+    margin-top: 14
+    vertical-scrollbar: optionsScroll
+    layout: verticalBox
+
+  VerticalScrollBar
+    id: optionsScroll
+    height: 75
+    anchors.bottom: parent.bottom
+    anchors.right: parent.right
+    margin-bottom: 2
+    step: 15
+    pixels-scroll: true
+    visible: false

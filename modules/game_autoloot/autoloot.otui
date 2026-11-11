@@ -1,0 +1,17 @@
+AutoLootItem < UIItem
+  size: 48 48
+  padding: 1
+  font: righteous-12px-rounded-solid
+  margin: 0 1
+  virtual: true
+  phantom: true
+
+Panel
+  id: autoLootItemsPanel
+  layout:
+    type: horizontalBox
+    fit-children: true
+  anchors.top: parent.top
+  anchors.horizontalCenter: parent.horizontalCenter
+  height: 48
+  margin-top: 115

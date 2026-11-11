@@ -1,0 +1,11 @@
+Module
+  name: game_pokemon
+  description: Displays of your pokemon
+  author: edubart, BeniS
+  website: www.otclient.info
+  dependencies: [ client_styles, client_topmenu, game_interface ]
+  sandboxed: true
+  scripts: [ pokemon ]
+  @onLoad: init()
+  @onUnload: terminate()
+

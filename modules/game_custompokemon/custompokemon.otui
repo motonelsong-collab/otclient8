@@ -1,0 +1,248 @@
+PanelRoundedSolid < Panel
+  border-width: 1
+  border-color: #505050
+  background-color: #2D2D2D
+
+PanelOutline < Panel
+  border-width: 1
+  border-color: #5D5D5D
+  background-color: alpha
+
+ButtonBlueBase < UIButton
+  size: 30 30
+  border-width: 1
+  border-color: #636363
+  background-color: #484848
+  color: #F1F1F1
+  icon-color: #F1F1F1
+  text-offset: 0 1
+  change-cursor-image: true
+  cursor: pointer
+
+  $hover !disabled:
+    background-color: #585858
+    border-color: #7A7A7A
+
+  $pressed:
+    background-color: #3F3F3F
+    text-offset: 1 2
+
+  $on:
+    background-color: #4D5A60
+    border-color: #7B8F98
+
+  $disabled:
+    background-color: #363636
+    border-color: #4B4B4B
+    color: #8F8F8F
+    icon-color: #8F8F8F
+    change-cursor-image: false
+
+ButtonBlueSmall < UIButton
+  height: 24
+  border-width: 1
+  border-color: #636363
+  background-color: #4A4A4A
+  color: #F1F1F1
+  text-offset: 0 1
+  change-cursor-image: true
+  cursor: pointer
+
+  $hover !disabled:
+    background-color: #5A5A5A
+    border-color: #7A7A7A
+
+  $pressed:
+    background-color: #404040
+    text-offset: 1 2
+
+  $disabled:
+    background-color: #363636
+    border-color: #4B4B4B
+    color: #8F8F8F
+    change-cursor-image: false
+
+ButtonRedBase < UIButton
+  size: 24 24
+  border-width: 1
+  border-color: #6A6A6A
+  background-color: #444444
+  icon-color: #E2E2E2
+  change-cursor-image: true
+  cursor: pointer
+
+  $hover !disabled:
+    background-color: #555555
+    border-color: #7A7A7A
+
+  $pressed:
+    background-color: #393939
+
+  $disabled:
+    icon-color: #9A9A9A
+    change-cursor-image: false
+
+Label-16px-Regular < Label
+  font: verdana-11px-monochrome
+  color: #D2D2D2
+
+Label-14px-Medium < Label
+  font: verdana-11px-monochrome
+  color: #F1F1F1
+
+Label-13px-Bold < Label
+  font: verdana-11px-monochrome
+  color: #F1F1F1
+
+Label-13px-Regular < Label
+  font: verdana-11px-monochrome
+  color: #B8B8B8
+
+Creature < UICreature
+  fixed-creature-size: true
+
+ComboBoxGame < ComboBox
+  height: 24
+  border-width: 1
+  border-color: #4E4E4E
+  background-color: #252525
+  color: #E8E8E8
+  padding-left: 8
+
+PokemonCustomPreviewPanel < PanelRoundedSolid
+  width: 178
+  padding: 12
+  background-color: #303030
+  border-color: #5A5A5A
+
+  UIWidget
+    id: locked
+    anchors.top: parent.top
+    anchors.right: parent.right
+    image-source: /images/game/icons/icon_lock
+    image-color: #DEDEDE
+    phantom: true
+    margin-top: 2
+    margin-right: 2
+
+  Label-13px-Bold
+    id: name
+    anchors.top: parent.top
+    anchors.left: parent.left
+    anchors.right: parent.right
+    margin-top: 6
+    text-auto-resize: true
+    text-align: center
+    text-wrap: true
+    text: Pokemon
+
+  Creature
+    id: outfit
+    size: 72 72
+    anchors.top: name.bottom
+    anchors.horizontalCenter: parent.horizontalCenter
+    margin-top: 18
+    &direction: 2
+
+  ButtonBlueBase
+    id: rotate
+    anchors.top: outfit.bottom
+    anchors.right: parent.horizontalCenter
+    margin-top: 18
+    margin-right: 5
+    icon: /images/game/outfits/icon_rotate
+    !tooltip: tr('Rotate')
+    @onClick: |
+      local parent = self:getParent()
+      parent.outfit.direction = (parent.outfit.direction + 1) % 4
+      parent.outfit:setDirection(parent.outfit.direction)
+
+  ButtonBlueBase
+    id: walking
+    anchors.top: outfit.bottom
+    anchors.left: parent.horizontalCenter
+    margin-top: 18
+    margin-left: 5
+    icon: /images/game/icons/pokeinfo
+    icon-clip: 0 44 22 22
+    !tooltip: tr('Walking')
+    @onClick: |
+      local parent = self:getParent()
+      self:setOn(not self:isOn())
+      parent.outfit:setAnimate(self:isOn())
+
+  ButtonBlueSmall
+    id: confirm
+    width: 100
+    anchors.bottom: parent.bottom
+    anchors.horizontalCenter: parent.horizontalCenter
+    margin-bottom: 8
+    !text: tr('Confirm')
+    enabled: false
+    @onClick: modules.game_custompokemon.confirmChoose()
+
+PokemonCustomTabBarVertical < TabBarVertical
+  width: 132
+
+PokemonCustomTabBarVerticalPanel < TabBarVerticalPanel
+  background-color: #3D3D3D
+  border-width: 1
+  border-color: #505050
+
+PokemonCustomTabBarVerticalButton < TabBarVerticalButton
+  height: 58
+  text-only-upper-case: false
+  text-align: center
+  text-offset: 0 0
+  color: #D0D0D0
+  background-color: #4A4A4A
+  border-width: 1
+  border-color: #565656
+
+  $hover:
+    background-color: #555555
+    color: #F0F0F0
+
+  $checked:
+    background-color: #353535
+    border-color: #717171
+    color: #F4F4F4
+
+MainWindow
+  size: 748 353
+  visible: false
+  !text: tr('Pokemon Customization')
+  @onEscape: modules.game_custompokemon.hide()
+  @onClose: modules.game_custompokemon.hide()
+
+  PokemonCustomTabBarVertical
+    id: mainTabBar
+    anchors.top: parent.top
+    anchors.left: parent.left
+    anchors.bottom: parent.bottom
+    margin-top: 10
+    margin-left: 10
+    margin-bottom: 10
+
+  PokemonCustomPreviewPanel
+    id: previewPanel
+    anchors.top: parent.top
+    anchors.right: parent.right
+    anchors.bottom: parent.bottom
+    margin-top: 10
+    margin-right: 10
+    margin-bottom: 10
+
+  PanelRoundedSolid
+    id: mainTabContent
+    anchors.top: parent.top
+    anchors.left: mainTabBar.right
+    anchors.right: previewPanel.left
+    anchors.bottom: parent.bottom
+    margin-top: 10
+    margin-left: 12
+    margin-right: 12
+    margin-bottom: 10
+    padding: 12
+    background-color: #242424
+    border-color: #4C4C4C

@@ -1,0 +1,210 @@
+ListCamWindow < MainHeadlessWindow
+  id: tvChannelsWindow
+  size: 461 500
+  !text: tr("TV Channels")
+  @onEscape: modules.game_cam.hideListCam()
+
+  VerticalScrollBar
+    id: scroll
+    step: 14
+    pixels-scroll: true
+    anchors.right: parent.right
+    anchors.top: parent.top
+    anchors.bottom: searchTextEdit.top
+    margin: 0 0 12 0
+
+  ScrollablePanel
+    id: list
+    vertical-scrollbar: scroll
+    anchors.top: prev.top
+    anchors.left: parent.left
+    anchors.right: prev.left
+    anchors.bottom: prev.bottom
+    padding: 2
+    layout:
+      type: verticalBox
+
+  TextEdit
+    id: search
+    anchors.left: parent.left
+    anchors.bottom: next.top
+    anchors.right: parent.right
+    margin-bottom: 12
+    !placeholder: tr('Search') .. "..."
+    @onTextChange: |
+      function(self, text, oldText)
+        self.placeholderLabel:setVisible(text:trim() == 0)
+      end
+
+  ButtonBlueSmall
+    id: watch
+    !text: tr("Watch")
+    anchors.right: parent.horizontalCenter
+    anchors.bottom: parent.bottom
+    anchors.left: parent.left
+    margin-right: 5
+
+  ButtonRedSmall
+    id: cancel
+    !text: tr("Close")
+    anchors.left: parent.horizontalCenter
+    anchors.bottom: parent.bottom
+    anchors.right: parent.right
+    margin-left: 5
+
+SpectatorCamPokemon < UIWidget
+  size: 28 28
+
+SpectatorCamWindow < MiniWindow
+  id: spectatorWindow
+  !text: tr("Channel Control")
+  height: 110
+  icon: /images/game/icons/icon_cam
+  icon-clip: 0 48 16 16
+  icon-size: 16 16
+  icon-offset: 2 3
+  @onClose: self.contentsPanel:close()
+  @onSetup: |
+    self:disableResize()
+
+  MiniWindowContents
+    padding: 8
+    &updatePanel: |
+      function(self, pokemons)
+        local parent  = self:getParent()
+        local layout  = self.pokemons:getLayout()
+        local cell    = layout:getCellSize()
+        local spacing = layout:getCellSpacing()
+        local count   = self.pokemons:getChildCount()
+        local size = {
+          height = (cell.height * math.ceil(count / 3))          + (math.ceil(count / 3)          * spacing),
+          width  = (cell.width  * math.ceil(math.min(count, 3))) + (math.ceil(math.min(count, 3)) * spacing)
+        }
+
+        parent:setHeight(size.height + (parent:isChecked() and 132 or 110))
+        self.pokemons:setSize(size)
+      end
+
+    Label-16px-Regular
+      id: name
+      text: Gameplay
+      text-wrap: true
+      text-auto-resize: true
+      anchors.top: parent.top
+      anchors.left: parent.left
+      anchors.right: parent.right
+      text-align: center
+
+    Panel
+      id: pokemons
+      width: 138
+      anchors.top: prev.bottom
+      anchors.horizontalCenter: parent.horizontalCenter
+      margin-top: 6
+      layout:
+        type: grid
+        cell-size: 42 42
+        cell-spacing: 4
+        flow: true
+
+    Label-14px-Regular
+      id: timer
+      text: 00:00:00
+      text-wrap: true
+      text-auto-resize: true
+      anchors.top: prev.bottom
+      anchors.left: parent.left
+      anchors.right: parent.right
+      text-align: center
+      margin-top: 6
+
+    Label-14px-Medium
+      id: views
+      anchors.bottom: prev.bottom
+      anchors.left: parent.left
+      text-auto-resize: true
+      text-offset: 28 2
+      icon: /images/game/icons/icon_eye_24px
+      icon-align: left
+      phantom: false
+      text: 0
+
+    ButtonBlueBase
+      id: prev
+      height: 28
+      !text: tr("Previous")
+      anchors.bottom: parent.bottom
+      anchors.left: parent.left
+      anchors.right: parent.horizontalCenter
+      margin-right: 4
+
+    ButtonBlueBase
+      id: next
+      height: 28
+      !text: tr("Next")
+      anchors.bottom: parent.bottom
+      anchors.right: parent.right
+      anchors.left: parent.horizontalCenter
+      margin-left: 4
+
+StreamingCamWindow < MiniWindow
+  id: channelControlWatchingWindow
+  !text: tr("Channel Control")
+  height: 122
+  icon: /images/game/icons/icon_cam
+  icon-clip: 0 48 16 16
+  icon-size: 16 16
+  icon-offset: 2 3
+  @onClose: self.contentsPanel:close()
+  @onSetup: |
+    self:disableResize()
+
+  MiniWindowContents
+    padding: 8
+
+    Label-16px-Regular
+      id: name
+      text: Gameplay
+      text-wrap: true
+      text-auto-resize: true
+      anchors.top: parent.top
+      anchors.left: parent.left
+      anchors.right: parent.right
+      text-align: center
+
+    Label-14px-Regular
+      id: timer
+      text: 00:00:00
+      text-wrap: true
+      text-auto-resize: true
+      anchors.top: prev.bottom
+      anchors.left: parent.left
+      anchors.right: parent.right
+      text-align: center
+      margin-top: 8
+
+    UIButton
+      id: views
+      anchors.bottom: parent.bottom
+      anchors.left: parent.left
+      text-auto-resize: true
+      text-offset: 28 2
+      icon: /images/game/icons/icon_eye_24px
+      font: DMSans-14px-medium
+      change-cursor-image: true
+      cursor: pointer
+      icon-align: left
+      phantom: false
+      margin: 4 8
+      text: 0
+
+    UIButton
+      id: edit
+      size: 23 23
+      anchors.bottom: parent.bottom
+      anchors.right: parent.right
+      icon: /images/game/icons/icons_one
+      change-cursor-image: true
+      icon-clip: 25 0 23 23
+      cursor: pointer
+      margin: 2 8

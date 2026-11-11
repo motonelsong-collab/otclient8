@@ -1,0 +1,11 @@
+Module
+  name: game_containers
+  description: Manage containers
+  author: edubart, baxnie
+  website: https://github.com/edubart/otclient
+  dependencies: [ client_styles, game_interface ]
+  sandboxed: true
+  scripts: [containers]
+  @onLoad: init()
+  @onUnload: terminate()
+

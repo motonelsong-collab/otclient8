@@ -1,0 +1,24 @@
+SpellIcon < SpellButton
+  width: 32
+  height: 32
+  image-size: 32 32
+  image-clip: 0 0 0 0
+  image-color: white
+  focusable: false
+  anchors.top: parent.top
+  anchors.left: parent.left
+
+SpellProgress < UIProgressRect
+  background: #585858AA
+  percent: 100
+  focusable: false
+  font: damas
+  color: #FFFFFF
+
+UIWindow
+  id: optionsWindow
+  size: 86 22
+  focusable: false
+  &save: true
+  image-source: /images/ui/textedit
+  image-border: 10

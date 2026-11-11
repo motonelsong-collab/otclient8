@@ -1,0 +1,156 @@
+MarketSellHeaderLabel < UICheckBox
+  height: 25
+  anchors.top: parent.top
+  anchors.left: parent.left
+  text-align: center
+  color: #FFE255
+  font: DMSans-14px-medium
+
+  $!first:
+    anchors.left: prev.right
+    margin-left: 2
+
+MarketSellHeader < Panel
+  id: header
+  height: 28
+  background-color: #212121
+
+  MarketSellHeaderLabel
+    width: 48
+    !text: tr('#')
+
+  MarketSellHeaderLabel
+    width: 55
+    !text: tr('Item')
+
+  MarketSellHeaderLabel
+    id: name
+    width: 160
+    !text: tr('Name')
+
+  MarketSellHeaderLabel
+    width: 100
+    !text: tr('Time')
+
+  MarketSellHeaderLabel
+    id: count
+    width: 80
+    !text: tr('Amount')
+
+  MarketSellHeaderLabel
+    id: price
+    width: 140
+    !text: tr('Unit Price')
+
+  MarketSellHeaderLabel
+    width: 70
+    !text: tr('Cancel')
+
+MarketSale < Panel
+  height: 32
+  background-color: #323232
+
+  $alternate:
+    background-color: #212121
+
+  Label-14px-Medium
+    id: idx
+    anchors.left: parent.left
+    anchors.verticalCenter: parent.verticalCenter
+    text-auto-resize: true
+    text-align: center
+    margin-left: 22
+
+  UIItem
+    id: item
+    size: 32 32
+    anchors.left: prev.right
+    anchors.verticalCenter: parent.verticalCenter
+    font: verdana-11px-rounded
+    margin-left: 30
+    virtual: true
+
+  Label-14px-Medium
+    id: name
+    width: 160
+    anchors.top: parent.top
+    anchors.bottom: parent.bottom
+    anchors.right: next.left
+    text-align: center
+    margin-right: 2
+
+  Label-14px-Medium
+    id: created
+    width: 100
+    anchors.top: parent.top
+    anchors.bottom: parent.bottom
+    anchors.right: next.left
+    text-align: center
+    margin-right: 2
+
+  Label-14px-Medium
+    id: count
+    width: 80
+    anchors.top: parent.top
+    anchors.bottom: parent.bottom
+    anchors.right: next.left
+    margin-right: 2
+    text-align: center
+
+  Label-14px-Medium
+    id: price
+    width: 140
+    anchors.top: parent.top
+    anchors.bottom: parent.bottom
+    anchors.right: parent.right
+    margin-right: 74
+    text-align: center
+
+  UIButton
+    id: cancel
+    size: 19 19
+    anchors.right: parent.right
+    anchors.verticalCenter: parent.verticalCenter
+    icon-source: /images/ui/miniwindow_buttons
+    icon-clip: 0 -1 19 19
+    margin-right: 28
+    change-cursor-image: true
+    cursor: pointer
+    icon-color: #F61208
+    @onClick: modules.game_market.sendCancelOffer(self:getParent().sale)
+
+Panel
+  id: sellPanel
+
+  MarketSellHeader
+    anchors.top: parent.top
+    anchors.left: parent.left
+    anchors.right: parent.right
+    margin: 15 12 0 0
+
+  TextList
+    id: sellList
+    anchors.top: next.top
+    anchors.bottom: next.bottom
+    anchors.left: parent.left
+    anchors.right: next.left
+    margin-right: 6
+    vertical-scrollbar: scroll
+
+  VerticalScrollBar
+    id: scroll
+    anchors.top: header.bottom
+    anchors.bottom: next.top
+    anchors.right: parent.right
+    margin-right: 2
+    margin-bottom: 14
+    step: 14
+    pixels-scroll: true
+    visible: false
+
+  MarketActionRoundedButton
+    width: 206
+    anchors.bottom: parent.bottom
+    anchors.right: parent.right
+    !text: tr('Sell item')
+    @onClick: modules.game_market.startChooseSellItem()

@@ -1,0 +1,10 @@
+Module
+  name: client_stats
+  description: Showing and sending debug/stats informations
+  author: otclient@otclient.ovh
+  dependencies: [ client_styles, client_topmenu ]
+  sandboxed: true
+  scripts: [ stats ]
+  @onLoad: init()
+  @onUnload: terminate()
+

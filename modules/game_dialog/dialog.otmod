@@ -1,0 +1,10 @@
+Module
+  name: game_dialog
+  description: Game Dialog
+  author: Gengo
+  dependencies: [ client_styles ]
+  sandboxed: true
+  scripts: [ dialog ]
+  @onLoad: init()
+  @onUnload: terminate()
+

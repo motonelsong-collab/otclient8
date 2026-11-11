@@ -1,0 +1,151 @@
+FragOutfit < UICreature 
+  size: 20 20
+  fixed-creature-size: true
+
+UIWidget
+  id: minimapWindow
+  size: 207 198
+  margin-bottom: 12
+  margin-right: 15
+  @onClose: modules.game_minimap.onMiniWindowClose()
+  &save: true
+  anchors.right: parent.right
+  anchors.bottom: parent.bottom
+
+  UIWidget
+    size: 207 198
+    image-source: /images/ui/minimap/minimap_cover.png
+    opacity: 1
+    anchors.bottom: parent.bottom
+    anchors.left: parent.left
+    margin-top: 5
+    margin-left: 0
+
+  UIWidget
+    id: minimapPanel
+    size: 169 160
+    anchors.fill: parent
+
+    UIWidget
+      id: minimapContents
+      size: 169 160
+      anchors.right: parent.right
+      anchors.bottom: parent.bottom
+      margin-bottom: 20
+      margin-right: 20
+
+      UIMinimap
+        id: minimap
+        anchors.fill: parent
+        color: alpha
+        draggable: true
+        focusable: false
+        cross: true
+
+    UIWidget
+      image-source: /images/ui/minimap/minimap_background.png
+      phantom: true
+
+    UIButton
+      id: floorUp
+      size: 40 40
+      @onClick: self:getParent():recursiveGetChildById('minimap'):floorUp(1)
+      !tooltip: tr('Floor Up')
+      anchors.right: parent.right
+      anchors.top: parent.top
+      margin-top: 140
+      margin-right: -6
+      image-source: /images/ui/minimap/cima.png
+      image-clip: 0 0 40 40
+      image-border: 3
+
+      $hover !disabled:
+        image-clip: 0 40 40 40
+
+      $pressed:
+        image-clip: 0 80 40 40
+        text-offset: 1 1
+
+    UIButton
+      id: floorDown
+      size: 40 40
+      @onClick: self:getParent():recursiveGetChildById('minimap'):floorDown(1)
+      !tooltip: tr('Floor Down')
+      anchors.right: parent.right
+      anchors.top: parent.top
+      margin-top: 100
+      margin-right: -6
+      image-source: /images/ui/minimap/baixo.png
+      image-clip: 0 0 40 40
+      image-border: 3
+
+      $hover !disabled:
+        image-clip: 0 40 40 40
+
+      $pressed:
+        image-clip: 0 80 40 40
+        text-offset: 1 1
+
+    UIButton
+      id: zoomIn
+      size: 40 40
+      @onClick: self:getParent():recursiveGetChildById('minimap'):zoomIn()
+      !tooltip: tr('Zoom')
+      anchors.right: parent.right
+      anchors.top: parent.top
+      margin-top: 55
+      margin-right: -6
+      image-source: /images/ui/minimap/mais.png
+      image-clip: 0 0 40 40
+      image-border: 3
+
+      $hover !disabled:
+        image-clip: 0 40 40 40
+
+      $pressed:
+        image-clip: 0 80 40 40
+        text-offset: 1 1
+
+    UIButton
+      id: zoomOut
+      size: 40 40
+      @onClick: self:getParent():recursiveGetChildById('minimap'):zoomOut()
+      !tooltip: tr('Minimize')
+      anchors.right: parent.right
+      anchors.top: parent.top
+      margin-top: 15
+      margin-right: -6
+      image-source: /images/ui/minimap/menos.png
+      image-clip: 0 0 40 40
+      image-border: 3
+
+      $hover !disabled:
+        image-clip: 0 40 40 40
+
+      $pressed:
+        image-clip: 0 80 40 40
+        text-offset: 1 1
+
+  $disabled:
+    color: #dfdfdf88
+    opacity: 0.8
+
+    UIWidget
+      id: pingLabel
+      !tooltip: tr('Ping')
+      text-auto-resize: true
+      anchors.top: parent.top
+      anchors.left: parent.left
+      margin-top: 20
+      margin-left: 35
+
+    UIWidget
+      id: posLabel
+      text-auto-resize: true
+      !text: tr('X: ')
+      !tooltip: tr('Position')
+      font: caviar-11px-rounded
+      anchors.bottom: parent.bottom
+      anchors.right: parent.right
+      margin-bottom: 20
+      margin-right: 20

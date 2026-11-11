@@ -1,0 +1,9 @@
+Module
+  name: game_notification
+  description: Server notifications
+  author: Gengo
+  dependencies: [ client_styles, game_interface ]
+  sandboxed: true
+  scripts: [ notification ]
+  @onLoad: init()
+  @onUnload: terminate()

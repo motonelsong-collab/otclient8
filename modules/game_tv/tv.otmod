@@ -1,0 +1,9 @@
+Module
+  name: game_tv
+  description: tv module
+  author: snowsz
+  website: http://pokeunion.com.br/
+  sandboxed: true
+  scripts: [ tv ]
+  @onLoad: init()
+  @onUnload: terminate()

@@ -1,0 +1,11 @@
+Module
+  name: game_playerdeath
+  description: Manage player deaths
+  author: BeniS, edubart
+  website: https://github.com/edubart/otclient
+  dependencies: [ client_styles, game_interface ]
+  sandboxed: true
+  scripts: [ playerdeath ]
+  @onLoad: init()
+  @onUnload: terminate()
+

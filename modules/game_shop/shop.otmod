@@ -1,0 +1,11 @@
+Module
+  name: game_shop
+  description: Game shop
+  author: otclient.ovh
+  website: http://otclient.ovh
+  dependencies: [ client_styles, client_topmenu ]
+  sandboxed: true
+  scripts: [ shop ]
+  @onLoad: init()
+  @onUnload: terminate()
+

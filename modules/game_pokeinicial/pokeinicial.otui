@@ -1,0 +1,75 @@
+ChoosePanel < Panel
+  height: 115
+  text-align: top
+  font: DMSans-16px-bold
+
+ChoosePokemon < UIWidget
+  size: 90 95
+  image-source: /images/ui/panel_outline
+  image-border: 12
+  image-clip: 0 0 170 60
+  anchors.bottom: parent.bottom
+  anchors.left: parent.left
+  @onClick: |
+    function(selectedWidget)
+      local pokemonList = selectedWidget:getParent():getParent()
+      if selectedWidget == pokemonList.selectedWidget then return end
+
+      local previousSelectedWidget = pokemonList.selectedWidget
+      pokemonList.selectedWidget = selectedWidget
+
+      if previousSelectedWidget then
+        previousSelectedWidget:setOn(false)
+      end
+
+      if selectedWidget then
+        selectedWidget:setOn(true)
+      end
+    end
+
+  $hover:
+    image-clip: 0 60 170 60
+
+  $on:
+    image-clip: 0 120 170 60
+
+  $on hover:
+    image-clip: 0 60 170 60
+
+  $!first:
+    anchors.left: prev.right
+    margin-left: 8
+
+  UIWidget
+    id: image
+    size: 56 56
+    anchors.centerIn: parent
+    margin-bottom: 5
+    phantom: true
+
+  Label
+    id: name
+    anchors.bottom: parent.bottom
+    anchors.horizontalCenter: parent.horizontalCenter
+    text-auto-resize: true
+    font: DMSans-14px-bold
+    margin-bottom: 4
+
+MainWindow
+  size: 625 520
+  !text: tr('Choose you pokemon')
+  @onEscape: modules.game_pokeinicial.destroy()
+  @onClose: modules.game_pokeinicial.destroy()
+
+  ScrollablePanel
+    id: pokemonList
+    anchors.fill: parent
+    anchors.top: prev.bottom
+    anchors.bottom: next.top
+    margin-top: 18
+
+  ButtonBlueMedium
+    anchors.bottom: parent.bottom
+    anchors.horizontalCenter: parent.horizontalCenter
+    !text: tr('Choose')
+    @onClick: modules.game_pokeinicial.choosePokemon()

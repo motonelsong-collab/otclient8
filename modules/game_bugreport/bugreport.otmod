@@ -1,0 +1,11 @@
+Module
+  name: game_bugreport
+  description: Bug report interface (Ctrl+Z)
+  author: edubart
+  website: https://github.com/edubart/otclient
+  dependencies: [ client_styles, game_interface ]
+  scripts: [ bugreport ]
+  sandboxed: true
+  @onLoad: init()
+  @onUnload: terminate()
+

@@ -1,0 +1,10 @@
+Module
+  name: client_options
+  description: Create the options window
+  author: edubart, BeniS
+  website: https://github.com/edubart/otclient
+  dependencies: [ client_styles, client_topmenu ]
+  sandboxed: true
+  scripts: [ options ]
+  @onLoad: init()
+  @onUnload: terminate()

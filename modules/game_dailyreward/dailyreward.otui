@@ -1,0 +1,117 @@
+Label-13px-Bold < Label
+  font: verdana-11px-monochrome
+
+RewardDay < UIWidget
+  image-source: /images/ui/item
+  image-border: 4
+  border: 0 #427efa
+
+  $on:
+    border: 1 #427efa
+
+  Label-13px-Bold
+    id: day
+    anchors.top: parent.top
+    anchors.right: parent.right
+    margin: 4
+    color: #FFFFFF
+
+    $on:
+      color: alpha
+
+  UIWidget
+    id: statusIcon
+    size: 12 12
+    anchors.top: parent.top
+    anchors.left: parent.left
+    margin: 4
+    image-color: white
+    visible: false
+
+  UIItem
+    id: item
+    size: 34 34
+    anchors.centerIn: parent
+    virtual: true
+    phantom: true
+
+  UIWidget
+    id: vip
+    anchors.bottom: parent.bottom
+    anchors.right: parent.right
+    margin: 2
+    image-source: /images/game/icons/icon_vip_14px
+
+MainWindow
+  size: 480 458
+  !text: tr('Recompensas diarias')
+  @onEscape: modules.game_dailyreward.closeWindow()
+
+  ScrollablePanel
+    id: rewardsList
+    anchors.top: parent.top
+    anchors.bottom: next.top
+    anchors.left: parent.left
+    anchors.right: parent.right
+    margin: 0 0 5 2
+    layout:
+      type: grid
+      cell-size: 62 62
+      flow: true
+      cell-spacing: 2
+
+  UIWidget
+    id: messagePanel
+    height: 58
+    anchors.bottom: next.top
+    anchors.left: parent.left
+    anchors.right: parent.right
+    margin-bottom: 12
+
+    UIItem
+      id: maxStackReward
+      size: 34 34
+      anchors.left: parent.left
+      anchors.verticalCenter: parent.verticalCenter
+      margin-left: 12
+      virtual: true
+
+    Label
+      id: messageLabel
+      anchors.left: prev.right
+      anchors.right: parent.right
+      anchors.verticalCenter: parent.verticalCenter
+      margin-left: 10
+      margin-right: 8
+      font: verdana-11px-monochrome
+      text-wrap: true
+
+  ScrollablePanel
+    id: vipRewardsList
+    height: 62
+    anchors.bottom: next.top
+    anchors.left: parent.left
+    anchors.right: parent.right
+    margin-bottom: 18
+    layout:
+      type: grid
+      cell-size: 62 62
+      flow: true
+      cell-spacing: 2
+
+  Button
+    id: claimButton
+    anchors.right: parent.horizontalCenter
+    anchors.bottom: parent.bottom
+    margin-right: 5
+    height: 22
+    !text: tr('Claim')
+    @onClick: modules.game_dailyreward.claimReward()
+
+  Button
+    anchors.left: parent.horizontalCenter
+    anchors.bottom: parent.bottom
+    margin-left: 5
+    height: 22
+    !text: tr('Close')
+    @onClick: modules.game_dailyreward.closeWindow()

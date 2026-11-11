@@ -1,0 +1,10 @@
+Module
+  name: game_unjustifiedpoints
+  description: View unjustified points
+  author: Summ
+  dependencies: [ client_styles, client_topmenu, game_interface ]
+  sandboxed: true
+  scripts: [ unjustifiedpoints ]
+  @onLoad: init()
+  @onUnload: terminate()
+

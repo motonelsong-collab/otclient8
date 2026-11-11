@@ -1,0 +1,127 @@
+HealthBar < ProgressBar
+  background-color: #46f046
+  size: 121 18
+  image-color: alpha
+  icon: img/bar
+  icon-align: right
+  icon-offset: 0 0
+  border-width: 0
+  margin: 10 0 0 4
+
+ExperienceBar < ProgressBar
+  background-color: #2C88CD
+  size: 121 18
+  image-color: alpha
+  icon: img/bar
+  icon-align: right
+  icon-offset: 0 0
+  border-width: 0
+  margin: 5 0 0 4
+
+ManaBar < ProgressBar
+  background-color: #e0de63
+  size: 121 18
+  image-color: alpha
+  icon: img/bar
+  icon-align: right
+  icon-offset: 0 0
+  border-width: 0
+  margin: 5 0 0 4
+
+Slot < UIWidget
+  image-source: img/level
+  font: damas
+  margin: 60 0 0 30
+
+SoulLabel < GameLabel
+  id: soulLabel
+  text-align: right
+  color: white
+  font: damas
+  anchors.bottom: parent.bottom
+  anchors.right: parent.right
+  anchors.left: parent.horizontalCenter
+  margin-top: 5
+  margin-right: 3
+  on: true
+
+  $!on:
+    visible: false
+    margin-top: 0
+    height: 0
+
+ConditionWidget < UIWidget
+  size: 18 18
+
+  $!first:
+    margin-left: 2
+
+UIWindow
+  id: healthInfoWindow
+  image-source: img/background
+  size: 278 94
+  anchors.top: parent.top
+  anchors.left: parent.left
+  margin-top: 60
+  margin-left: 10
+
+
+  Label
+    id: nameLabel
+    anchors.top: parent.top
+    anchors.left: parent.left
+    !text: tr('Name')
+    font: damas
+    text-auto-resize: true
+    color: #ffffff
+    margin: 3 1 1 92
+
+  UIWidget
+    id: imagePlayer
+    size: 133 115
+    anchors.top: parent.top
+    anchors.left: parent.left
+    margin-top: -22
+    margin-left: -3
+
+  Slot
+    id: levelLabel
+    anchors.bottom: parent.bottom
+    anchors.left: parent.left
+    margin: 0 0 -14 48
+
+  HealthBar
+    id: healthBar
+    anchors.top: nameLabel.bottom
+    anchors.left: imagePlayer.right
+
+  Label
+    id: healthLabel
+    font: damas
+    anchors.top: prev.top
+    anchors.left: prev.right
+    margin: -2 0 0 8
+
+  ExperienceBar
+    id: experienceBar
+    anchors.top: healthBar.bottom
+    anchors.left: imagePlayer.right
+
+  Label
+    id: experienceLabel
+    font: damas
+    anchors.top: prev.top
+    anchors.left: prev.right
+    margin: -3 0 0 7
+
+  ManaBar
+    id: manaBar
+    anchors.top: experienceBar.bottom
+    anchors.left: imagePlayer.right
+
+  Label
+    id: manaLabel
+    font: damas
+    anchors.top: prev.top
+    anchors.left: prev.right
+    margin: -3 0 0 5

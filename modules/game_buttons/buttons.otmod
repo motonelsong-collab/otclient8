@@ -1,0 +1,10 @@
+Module
+  name: game_buttons
+  description: Shows miniwindow with buttons
+  author: otclient@otclient.ovh
+  dependencies: [ client_styles, game_interface ]
+  sandboxed: true
+  scripts: [ buttons ]
+  @onLoad: init()
+  @onUnload: terminate()
+

@@ -1,0 +1,11 @@
+Module
+  name: game_itemselector
+  description: Allow to select item
+  author: OTClientV8
+  website: https://github.com/OTCv8/otclientv8
+  dependencies: [ client_styles, game_interface ]
+  sandboxed: true
+  scripts: [ itemselector ]
+  @onLoad: init()
+  @onUnload: terminate()
+

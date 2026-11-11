@@ -1,0 +1,11 @@
+Module
+  name: client_locales
+  description: Translates texts to selected language
+  author: baxnie, edubart
+  website: https://github.com/edubart/otclient
+  dependencies: [ client_styles ]
+  sandboxed: true
+  scripts: [ locales ]
+  @onLoad: init()
+  @onUnload: terminate()
+

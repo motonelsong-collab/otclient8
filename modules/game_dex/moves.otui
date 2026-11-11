@@ -1,0 +1,60 @@
+PokedexMoves < UIWidget
+  height: 34
+
+  $!first:
+    margin-top: 5
+
+  UIWidget
+    id: icon
+    size: 32 32
+    anchors.left: parent.left
+    anchors.verticalCenter: parent.verticalCenter
+    phantom: true
+
+  Label
+    id: name
+    anchors.top: parent.top
+    anchors.left: prev.right
+    margin: 4 0 0 6
+    text-auto-resize: true
+    font: window
+
+  Label
+    id: cooldown
+    anchors.top: prev.bottom
+    anchors.left: prev.left
+    text-auto-resize: true
+
+  Label
+    id: level
+    anchors.verticalCenter: parent.verticalCenter
+    anchors.right: next.left
+    margin-right: 8
+    text-auto-resize: true
+
+  UIScrollArea
+    id: elements
+    size: 24 24 
+    anchors.verticalCenter: parent.verticalCenter
+    anchors.right: parent.right
+    margin-right: 4
+    layout: horizontalBox
+
+Panel
+  id: panMoves
+  size: 200 200
+
+  TextList
+    id: uiMovesList
+    anchors.fill: parent
+    anchors.right: next.left
+    vertical-scrollbar: uiMoveScroll
+    
+  VerticalScrollBar
+    id: uiMoveScroll
+    anchors.top: parent.top
+    anchors.bottom: parent.bottom
+    anchors.right: parent.right
+    margin-right: -3
+    step: 14
+    pixels-scroll: true

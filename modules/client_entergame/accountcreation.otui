@@ -1,0 +1,177 @@
+CreateAccountWindow < MainWindow
+  id: createAccountWindow
+  !text: tr('Criar Conta')
+  size: 340 500
+  @onEscape: EnterGame.hideCreateAccountWindow()
+
+  ScrollablePanel
+    id: formScrollArea
+    anchors.top: parent.top
+    anchors.left: parent.left
+    anchors.right: formScrollBar.left
+    anchors.bottom: confirmButton.top
+    margin-right: 6
+    margin-bottom: 10
+    padding-right: 4
+    vertical-scrollbar: formScrollBar
+
+    Label
+      !text: tr('Conta')
+      anchors.top: parent.top
+      anchors.left: parent.left
+      margin-top: 2
+
+    TextEdit
+      id: accountNameTextEdit
+      anchors.top: prev.bottom
+      anchors.left: parent.left
+      anchors.right: parent.right
+      margin-top: 3
+
+    Label
+      !text: tr('Apelido')
+      anchors.top: prev.bottom
+      anchors.left: parent.left
+      margin-top: 8
+
+    TextEdit
+      id: nicknameTextEdit
+      anchors.top: prev.bottom
+      anchors.left: parent.left
+      anchors.right: parent.right
+      margin-top: 3
+
+    Label
+      !text: tr('E-mail')
+      anchors.top: prev.bottom
+      anchors.left: parent.left
+      margin-top: 8
+
+    TextEdit
+      id: emailTextEdit
+      anchors.top: prev.bottom
+      anchors.left: parent.left
+      anchors.right: parent.right
+      margin-top: 3
+
+    Label
+      !text: tr('Senha')
+      anchors.top: prev.bottom
+      anchors.left: parent.left
+      margin-top: 8
+
+    PasswordTextEdit
+      id: passwordTextEdit
+      anchors.top: prev.bottom
+      anchors.left: parent.left
+      anchors.right: parent.right
+      margin-top: 3
+
+    Label
+      !text: tr('Repetir senha')
+      anchors.top: prev.bottom
+      anchors.left: parent.left
+      margin-top: 8
+
+    PasswordTextEdit
+      id: repeatPasswordTextEdit
+      anchors.top: prev.bottom
+      anchors.left: parent.left
+      anchors.right: parent.right
+      margin-top: 3
+
+    HorizontalSeparator
+      anchors.top: prev.bottom
+      anchors.left: parent.left
+      anchors.right: parent.right
+      margin-top: 10
+
+    Label
+      !text: tr('Primeiro personagem')
+      anchors.top: prev.bottom
+      anchors.left: parent.left
+      margin-top: 8
+
+    TextEdit
+      id: characterNameTextEdit
+      anchors.top: prev.bottom
+      anchors.left: parent.left
+      anchors.right: parent.right
+      margin-top: 3
+
+    Label
+      !text: tr('Sexo')
+      anchors.top: prev.bottom
+      anchors.left: parent.left
+      margin-top: 8
+
+    ComboBox
+      id: sexComboBox
+      anchors.top: prev.bottom
+      anchors.left: parent.left
+      anchors.right: parent.right
+      margin-top: 3
+
+    Label
+      !text: tr('Vocacao')
+      anchors.top: prev.bottom
+      anchors.left: parent.left
+      margin-top: 8
+
+    ComboBox
+      id: vocationComboBox
+      anchors.top: prev.bottom
+      anchors.left: parent.left
+      anchors.right: parent.right
+      margin-top: 3
+
+    Label
+      !text: tr('Cidade')
+      anchors.top: prev.bottom
+      anchors.left: parent.left
+      margin-top: 8
+
+    ComboBox
+      id: cityComboBox
+      anchors.top: prev.bottom
+      anchors.left: parent.left
+      anchors.right: parent.right
+      margin-top: 3
+
+    Label
+      !text: tr('Mundo')
+      anchors.top: prev.bottom
+      anchors.left: parent.left
+      margin-top: 8
+
+    ComboBox
+      id: worldComboBox
+      anchors.top: prev.bottom
+      anchors.left: parent.left
+      anchors.right: parent.right
+      margin-top: 3
+
+  VerticalScrollBar
+    id: formScrollBar
+    anchors.top: parent.top
+    anchors.right: parent.right
+    anchors.bottom: confirmButton.top
+    margin-bottom: 10
+    step: 16
+    pixels-scroll: true
+
+  Button
+    id: confirmButton
+    !text: tr('Criar Conta')
+    width: 110
+    anchors.right: cancelButton.left
+    anchors.bottom: parent.bottom
+    margin-right: 10
+
+  Button
+    id: cancelButton
+    !text: tr('Cancelar')
+    width: 90
+    anchors.right: parent.right
+    anchors.bottom: parent.bottom
+    @onClick: EnterGame.hideCreateAccountWindow()

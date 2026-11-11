@@ -1,0 +1,9 @@
+Module
+  name: game_dailyreward
+  description: Game Daily Reward
+  author: SuggestName
+  dependencies: [ client_styles, client_topmenu ]
+  sandboxed: true
+  scripts: [ dailyreward ]
+  @onLoad: init()
+  @onUnload: terminate()

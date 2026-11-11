@@ -1,0 +1,12 @@
+Module
+  name: client_topmenu
+  description: Create the top menu
+  author: edubart
+  website: www.otclient.info
+  dependencies: [ client_styles ]
+  scripts: [ topmenu ]
+  sandboxed: true
+  @onLoad: init()
+  @onUnload: terminate()
+
+

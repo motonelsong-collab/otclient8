@@ -1,0 +1,54 @@
+PokemonCustomPulseAura < PanelOutline
+  image-clip: 0 60 170 60
+  image-color: alpha
+  phantom: false
+
+  $focus:
+    image-clip: 0 60 170 60
+    image-color: white
+
+  PanelRoundedSolid
+    id: color
+    anchors.fill: parent
+    image-color: #626262
+    margin: 3
+
+  UIWidget
+    id: locked
+    anchors.centerIn: parent
+    image-source: /images/game/console/icon_lock
+    phantom: true
+
+PokemonCustomShaderGrid < UIScrollArea
+  layout:
+    type: grid
+    cell-size: 56 56
+    flow: true
+
+Panel
+  id: shadersPanel
+
+  ComboBoxGame
+    id: category
+    anchors.top: parent.top
+    anchors.left: parent.left
+    anchors.right: parent.right
+    @onSetup: |
+      self:addOption(tr('Pulse Aura'))
+
+  PokemonCustomShaderGrid
+    id: list
+    anchors.fill: parent
+    anchors.top: next.top
+    anchors.right: next.left
+    vertical-scrollbar: scroll
+
+  VerticalScrollBar
+    id: scroll
+    anchors.top: category.bottom
+    anchors.bottom: parent.bottom
+    anchors.right: parent.right
+    step: 14
+    pixels-scroll: true
+    visible: false
+    margin-top: 10

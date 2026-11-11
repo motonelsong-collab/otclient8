@@ -1,0 +1,10 @@
+Module
+  name: game_textmessage
+  description: Manage game text messages
+  author: edubart
+  website: https://github.com/edubart/otclient
+  dependencies: [ client_styles, game_interface ]
+  sandboxed: true
+  scripts: [ textmessage ]
+  @onLoad: init()
+  @onUnload: terminate()

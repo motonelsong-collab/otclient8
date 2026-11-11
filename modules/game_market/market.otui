@@ -1,0 +1,286 @@
+PanelRoundedSolid < Panel
+  border-width: 1
+  border-color: #505050
+  background-color: #2D2D2D
+
+ButtonBlueSmall < UIButton
+  height: 24
+  border-width: 1
+  border-color: #636363
+  background-color: #4A4A4A
+  color: #F1F1F1
+  text-offset: 0 1
+  change-cursor-image: true
+  cursor: pointer
+
+  $hover !disabled:
+    background-color: #5A5A5A
+    border-color: #7A7A7A
+
+  $pressed:
+    background-color: #404040
+    text-offset: 1 2
+
+  $disabled:
+    background-color: #363636
+    border-color: #4B4B4B
+    color: #8F8F8F
+    change-cursor-image: false
+
+ButtonRedSmall < UIButton
+  height: 24
+  border-width: 1
+  border-color: #6A6A6A
+  background-color: #444444
+  color: #E2E2E2
+  text-offset: 0 1
+  change-cursor-image: true
+  cursor: pointer
+
+  $hover !disabled:
+    background-color: #555555
+    border-color: #7A7A7A
+
+  $pressed:
+    background-color: #393939
+    text-offset: 1 2
+
+  $disabled:
+    background-color: #363636
+    border-color: #4B4B4B
+    color: #9A9A9A
+    change-cursor-image: false
+
+Label-16px-Regular < Label
+  font: verdana-11px-monochrome
+  color: #D2D2D2
+
+Label-14px-Medium < Label
+  font: verdana-11px-monochrome
+  color: #F1F1F1
+
+Label-14px-Regular < Label
+  font: verdana-11px-monochrome
+  color: #D2D2D2
+
+Label-13px-Bold < Label
+  font: verdana-11px-monochrome
+  color: #F1F1F1
+
+Label-13px-Regular < Label
+  font: verdana-11px-monochrome
+  color: #B8B8B8
+
+MarketCategoryComboBoxPopupMenuButton < ComboBoxPopupMenuButton
+  height: 20
+  font: verdana-11px-monochrome
+  text-offset: 4 0
+
+MarketCategoryComboBoxPopupMenu < ComboBoxPopupMenu
+
+MarketCategoryComboBox < UIComboBox
+  font: verdana-11px-monochrome
+  color: #E8E8E8
+  height: 22
+  border-width: 1
+  border-color: #4E4E4E
+  background-color: #252525
+  padding-left: 6
+  text-align: left
+  text-offset: 0 0
+
+  $hover !disabled:
+    border-color: #6A6A6A
+    background-color: #2D2D2D
+
+  $on:
+    border-color: #7B7B7B
+    background-color: #303030
+
+  $disabled:
+    color: #A0A0A0
+    opacity: 0.8
+
+MarketComboBoxPopupMenuButton < ComboBoxRoundedPopupMenuButton
+  font: verdana-11px-monochrome
+
+MarketComboBoxPopupMenu < ComboBoxRoundedPopupMenu
+
+MarketComboBox < ComboBox
+  font: verdana-11px-monochrome
+  color: #dfdfdf
+  size: 89 20
+  text-offset: 6 0
+  text-align: left
+  image-source: /images/ui/combobox_rounded
+  image-border: 3
+  image-border-right: 19
+  image-clip: 0 0 89 20
+
+  $hover !disabled:
+    image-clip: 0 20 89 20
+
+  $on:
+    image-clip: 0 40 89 20
+
+  $disabled:
+    color: #dfdfdf88
+    opacity: 0.8
+
+MainHeadlessWindow < MainWindow
+MarketTabBar < TabBar
+MarketTabBarPanel < TabBarPanel
+MarketTabBarButton < TabBarButton
+  size: 150 23
+  font: verdana-11px-monochrome
+  text-offset: 14 0
+  image-source: /images/ui/tabbutton_rounded
+  image-border: 10
+  image-color: #DFDFDF
+  image-clip: 0 0 75 23
+  icon-color: #DFDFDF
+  color: #DFDFDF
+  icon-align: left
+  icon-offset: 12 0
+
+  $!first:
+    anchors.left: prev.right
+    margin-left: 6
+
+  $hover !checked:
+    image-clip: 0 23 75 23
+    icon-color: white
+    color: white
+
+  $checked:
+    image-clip: 0 46 75 23
+    icon-color: white
+    color: white
+
+MarketActionRoundedButton < UIButton
+  height: 23
+  image-source: /images/ui/tabbutton_rounded
+  image-border: 10
+  image-color: #DFDFDF
+  image-clip: 0 0 75 23
+  icon-color: #DFDFDF
+  color: #DFDFDF
+  font: verdana-11px-monochrome
+  text-offset: 0 0
+  text-align: center
+  change-cursor-image: true
+  cursor: pointer
+
+  $hover !disabled:
+    image-clip: 0 23 75 23
+    color: white
+    icon-color: white
+
+  $pressed:
+    image-clip: 0 46 75 23
+    color: white
+    icon-color: white
+    text-offset: 0 1
+
+  $disabled:
+    image-color: #DFDFDF66
+    color: #B0B0B0
+    icon-color: #B0B0B0
+    change-cursor-image: false
+
+MarketWindowSideButton < UIButton
+  size: 18 18
+  border-width: 0
+  background-color: alpha
+  image-color: white
+  change-cursor-image: true
+  cursor: pointer
+
+  $hover:
+    background-color: #FFFFFF10
+
+  $pressed:
+    background-color: #00000018
+
+MarketDragArea < PanelRoundedSolid
+  id: dragArea
+  margin: -15
+  visible: false
+  image-color: #000000E6 
+  phantom: false
+
+  UIWidget
+    anchors.centerIn: parent
+    image-source: /images/game/market/icon_sell
+
+  Label-14px-Medium
+    anchors.top: prev.bottom
+    anchors.horizontalCenter: parent.horizontalCenter
+    margin-top: 12
+    !text: tr('Drop your item here to sell it')
+    text-auto-resize: true
+
+MainWindow
+  id: marketWindow
+  size: 707 586
+  visible: false
+  @onClose: modules.game_market.onGameEnd()
+  @onEscape: modules.game_market.onGameEnd()
+  !text: tr('Market')
+
+  MarketTabBar
+    id: mainTabBar
+    size: 200 40
+    anchors.top: prev.bottom
+    anchors.left: parent.left
+    anchors.right: parent.right
+    margin: 18 0
+    margin-right: 42
+
+  MarketWindowSideButton
+    id: closeMarket
+    anchors.top: mainTabBar.top
+    anchors.right: parent.right
+    margin-top: 2
+    margin-right: 12
+    image-source: /images/ui/miniwindow_buttons
+    image-clip: 30 0 15 15
+    @onClick: modules.game_market.onGameEnd()
+
+    $hover:
+      image-clip: 30 15 15 15
+
+    $pressed:
+      image-clip: 30 30 15 15
+
+  MarketWindowSideButton
+    id: refreshOffers
+    anchors.top: closeMarket.bottom
+    anchors.horizontalCenter: closeMarket.horizontalCenter
+    margin-top: 8
+    image-source: /images/game/market/icon_refresh
+    &delay: 0
+    @onClick: |
+      function(self)
+        if os.time() > self.delay then
+          self.delay = os.time() + 2.2
+          modules.game_market.refreshOffers()
+        end
+      end
+
+    $hover:
+      image-color: #FFD45A
+
+    $pressed:
+      image-color: #EBC243
+
+  Panel
+    id: mainTabContent
+    anchors.top: mainTabBar.bottom
+    anchors.left: parent.left
+    anchors.right: parent.right
+    anchors.bottom: parent.bottom
+    margin: 14 8 4 0
+
+  MarketDragArea
+    anchors.fill: parent

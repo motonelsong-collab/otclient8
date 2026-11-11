@@ -1,0 +1,9 @@
+Module
+  name: game_cam
+  description: cam module
+  author: PStory
+  website: https://pstoryonline.com
+  sandboxed: true
+  scripts: [ streaming, streamingPanel, spectator, spectatorPanel, listCams, listCamPanel, cam ]
+  @onLoad: init()
+  @onUnload: terminate()

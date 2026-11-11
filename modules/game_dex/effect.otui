@@ -1,0 +1,53 @@
+PokedexEffectivenessType < UIWidget
+  size: 20 20
+
+PokedexEffectivenessPanel < Panel
+  height: 40
+  anchors.top: parent.top
+  anchors.left: parent.left
+  anchors.right: parent.right
+
+  $!first:
+    anchors.top: prev.bottom
+    margin-top: 8
+
+  Label
+    id: name
+    text-auto-resize: true
+    anchors.top: parent.top
+    anchors.left: parent.left
+    margin-top: 2
+
+  ScrollablePanel
+    id: elements
+    anchors.top: prev.bottom
+    anchors.left: parent.left
+    anchors.right: parent.right
+    anchors.bottom: parent.bottom
+    margin-top: 3
+    layout:
+      type: grid
+      cell-size: 32 32
+      flow: true
+      cell-spacing: 4
+
+
+Panel
+  id: panEffect
+  size: 200 200
+
+  ScrollablePanel
+    id: uiEffectivenessList
+    anchors.fill: parent
+    padding: 5
+    vertical-scrollbar: uiEffectivenessScroll
+
+  VerticalScrollBar
+    id: uiEffectivenessScroll
+    anchors.top: prev.top
+    anchors.right: parent.right
+    anchors.bottom: prev.bottom
+    margin-right: -2
+    step: 32
+    pixels-scroll: true
+

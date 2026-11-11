@@ -1,0 +1,66 @@
+MainWindow
+  id: tvCamWindow
+  !text: tr("Camera TV")
+  height: 180
+  width: 300
+  @onEscape: self:hide()
+
+  UIItem
+    id: cameraItem
+    width: 40
+    height: 40
+    anchors.left: parent.left
+    anchors.top: parent.top
+    margin-top: 5
+    margin-left: 5
+    border-width: 1
+    border-color: red
+
+  Label
+    id: channelNameLabel
+    !text: tr("Channel Name")
+    width: 180
+    anchors.left: prev.right
+    anchors.top: prev.top
+    margin-left: 10
+    margin-top: -5
+
+  TextEdit
+    id: channelNameTextEdit
+    anchors.right: parent.right
+    anchors.left: prev.left
+    anchors.top: prev.bottom
+    margin-top: 2
+
+  CheckBox
+    id: channelPasswordCheckbox
+    !text: tr("Password")
+    width: 180
+    anchors.left: prev.left
+    anchors.top: prev.bottom
+    margin-top: 5
+    @onCheckChange: self:getParent().channelPasswordTextEdit:setEnabled(self:isChecked())
+
+  TextEdit
+    id: channelPasswordTextEdit
+    anchors.right: parent.right
+    anchors.left: prev.left
+    anchors.top: prev.bottom
+    margin-top: 2
+    @onSetup: self:setEnabled(self:getParent().channelPasswordCheckbox:isChecked())
+
+  UIButton
+    id: createButton
+    !text: tr("Create")
+    width: 80
+    anchors.right: next.left
+    anchors.bottom: parent.bottom
+    margin-right: 5
+
+  UIButton
+    id: cancelButton
+    !text: tr("Cancel")
+    width: 80
+    anchors.right: parent.right
+    anchors.bottom: parent.bottom
+    @onClick: self:getParent():hide()

@@ -1,0 +1,61 @@
+TVButton < UIButton
+  width: 140
+  anchors.horizontalCenter: parent.horizontalCenter
+  anchors.top: prev.bottom
+  margin-top: 5
+
+  $first:
+    anchors.top: parent.top
+    margin-top: 0
+
+TVPokemonPortrait < UIItem
+  id: cameraItem
+  width: 24
+  border-width: 1
+  border-color: red
+
+TVChannelListLabel < UIWidget
+  height: 36
+  padding: 6
+  background-color: alpha
+  &updateOnStates: |
+    function(self)
+      local children = self:getChildren()
+      for i=1,#children do
+        children[i]:setOn(self:isFocused())
+      end
+    end
+  @onFocusChange: self:updateOnStates()
+  @onSetup: self:updateOnStates()
+  @onDoubleClick: function(...) modules.game_tv.tvChannelsWatchOnClick(...) end
+
+  $hover:
+    background-color: #69B2FC
+
+  $focus:
+    background-color: #057FFA
+
+  Label-16px-Bold
+    id: channelLabel
+    anchors.verticalCenter: parent.verticalCenter
+    anchors.left: parent.left
+    text-auto-resize: true
+    color: #FFFFFF
+
+  Label-16px-Regular
+    id: viewLabel
+    anchors.verticalCenter: parent.verticalCenter
+    anchors.right: next.left
+    margin-right: 12
+    text-auto-resize: true
+
+  Panel
+    size: 24 24
+    anchors.right: parent.right
+    anchors.verticalCenter: parent.verticalCenter
+    image-source: /images/game/icons/icon_eye_24px
+
+TVPokemonImage < UIWidget
+  size: 34 34
+  focusable: false
+  phantom: false

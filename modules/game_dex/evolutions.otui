@@ -1,0 +1,76 @@
+PokedexStone < UIItem
+  virtual: true
+
+PokedexEvolution < UIWidget
+  height: 64
+
+  UIWidget
+    id: image
+    size: 62 42
+    anchors.left: parent.left
+    anchors.verticalCenter: parent.verticalCenter
+    image-color: black
+
+    $on:
+      image-color: white
+
+  Label
+    id: name
+    anchors.top: prev.top
+    anchors.left: prev.right
+    margin: 4 0 0 12
+    text-auto-resize: true
+    color: #ededed
+
+    $checked:
+      color: #427efa
+
+  Label
+    id: level
+    anchors.top: prev.bottom
+    anchors.left: prev.left
+    margin-top: 5
+
+  Label
+    id: envolve
+    anchors.top: image.top
+    anchors.right: parent.right
+    margin-top: 4
+    !text: tr('Evolves with')
+
+  ScrollablePanel
+    id: uiStonesList
+    anchors.top: prev.bottom
+    anchors.bottom: parent.bottom
+    anchors.right: parent.right
+    layout:
+      type: grid
+      cell-size: 32 32
+      flow: true
+      cell-spacing: 2
+      num-columns: 2
+      num-lines: 2
+
+Panel
+  id: panSpecies
+  size: 200 200
+
+  UIScrollArea
+    id: uiEvolutionsList
+    anchors.fill: parent
+    anchors.right: next.left
+    background-color: alpha
+    border: 0 alpha
+    vertical-scrollbar: uiEvolutionsScroll
+    layout: verticalBox
+    auto-focus: none
+
+  VerticalScrollBar
+    id: uiEvolutionsScroll
+    anchors.top: parent.top
+    anchors.bottom: parent.bottom
+    anchors.right: parent.right
+    margin-right: -3
+    step: 14
+    pixels-scroll: true
+    visible: false

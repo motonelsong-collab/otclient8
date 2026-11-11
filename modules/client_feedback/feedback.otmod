@@ -1,0 +1,11 @@
+Module
+  name: client_feedback
+  description: Allow to send feedback
+  author: otclientv8
+  website: otclient.ovh
+  dependencies: [ client_styles, game_interface ]
+  sandboxed: true
+  scripts: [ feedback ]
+  @onLoad: init()
+  @onUnload: terminate()
+

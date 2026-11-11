@@ -1,0 +1,51 @@
+MiniWindow
+  id: channelControlStreamingWindow
+  !text: tr("Channel Control")
+  height: 128
+
+  MiniWindowContents
+    Label
+      id: channelStatusLabel
+      text: Channel Name
+      text-wrap: true
+      text-auto-resize: true
+      anchors.horizontalCenter: parent.horizontalCenter
+      anchors.top: parent.top
+      margin-top: 4
+
+    Label
+      id: channelTimeLabel
+      text: 00:00:00
+      text-wrap: true
+      text-auto-resize: true
+      anchors.horizontalCenter: parent.horizontalCenter
+      anchors.top: prev.bottom
+      margin-top: 4
+
+    TVButton
+      id: spectatorsButton
+      !text: tr("Spectators") .. " (0)"
+
+    UIButton
+      id: pokemonsButton
+      size: 24 24
+      anchors.horizontalCenter: parent.horizontalCenter
+      anchors.top: prev.bottom
+      margin-top: 6
+      icon: /images/game/icons/icon_eye_24px
+      change-cursor-image: true
+      cursor: pointer
+      phantom: false
+      focusable: false
+
+    TVButton
+      id: changeNameButton
+      !text: tr("Change Name")
+
+    TVButton
+      id: changePasswordButton
+      !text: tr("Change Password")
+
+    TVButton
+      id: bannedListButton
+      !text: tr("Banned List")

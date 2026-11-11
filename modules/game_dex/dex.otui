@@ -1,0 +1,651 @@
+PokedexCloseButton < UIButton
+  size: 22 22
+  image-source: /images/game/pokedex/close
+  image-color: white
+  border-width: 0
+  background-color: #d84f4f
+
+  $hover:
+    background-color: #ef5f5f
+
+PokedexTabButton < UIButton
+  size: 30 30
+  color: #7f7f7f
+  background-color: alpha
+  border-width: 0
+  focusable: false
+  font: verdana-11px-rounded
+  image-source: /images/game/icons/icons_eight
+  image-clip: 102 0 34 28
+
+  $hover:
+    color: #ededed
+    image-color: #ededed
+
+  $on:
+    color: #4d7cff
+    image-color: #4d7cff
+    background-color: alpha
+
+PokedexMiniIconButton < UIButton
+  size: 28 28
+  border-width: 0
+  background-color: alpha
+  image-color: white
+
+  $hover:
+    image-color: #ffd44d
+
+  $on:
+    image-color: #ffd44d
+
+PokedexMoveRow < Panel
+  height: 42
+  margin-bottom: 10
+  background-color: alpha
+  border-width: 0
+  padding-left: 2
+  padding-right: 2
+
+  UIWidget
+    id: icon
+    anchors.left: parent.left
+    anchors.verticalCenter: parent.verticalCenter
+    size: 34 34
+    image-color: white
+
+  Label
+    id: name
+    anchors.left: icon.right
+    anchors.right: typeIcon.left
+    anchors.top: parent.top
+    margin-left: 10
+    margin-right: 10
+    margin-top: 0
+    color: #f3f4f6
+    font: DMSans-14px-bold
+
+  Label
+    id: cooldown
+    anchors.left: name.left
+    anchors.right: name.right
+    anchors.bottom: parent.bottom
+    margin-bottom: 0
+    color: #f3f4f6
+    font: verdana-11px-rounded
+
+  UIWidget
+    id: typeIcon
+    anchors.right: parent.right
+    anchors.verticalCenter: parent.verticalCenter
+    size: 24 24
+    image-color: white
+
+PokedexStatBar < ProgressBar
+  height: 16
+  border-width: 0
+  background-color: #4d7cff
+  image-color: alpha
+  text-offset: 0 0
+
+PokedexStatRow < Panel
+  height: 28
+  margin-bottom: 6
+  border-width: 0
+  background-color: alpha
+
+  Label
+    id: name
+    width: 92
+    anchors.left: parent.left
+    anchors.verticalCenter: parent.verticalCenter
+    color: #f3f4f6
+    font: DMSans-14px-bold
+    text-align: right
+
+  Panel
+    id: track
+    anchors.left: name.right
+    anchors.right: parent.right
+    anchors.verticalCenter: parent.verticalCenter
+    margin-left: 10
+    height: 16
+    border-width: 0
+    background-color: #595959
+
+    PokedexStatBar
+      id: progress
+      anchors.fill: parent
+
+PokedexEvolutionRow < Panel
+  height: 72
+  margin-bottom: 12
+  border-width: 0
+  background-color: alpha
+
+  UIWidget
+    id: image
+    anchors.left: parent.left
+    anchors.verticalCenter: parent.verticalCenter
+    size: 68 52
+    image-color: white
+
+  Label
+    id: number
+    anchors.top: parent.top
+    anchors.left: image.right
+    width: 40
+    margin-top: 8
+    margin-left: 12
+    color: #f3f4f6
+    font: DMSans-14px-bold
+    text: '#000'
+
+  Label
+    id: name
+    anchors.top: number.top
+    anchors.left: number.right
+    anchors.right: parent.right
+    margin-left: 4
+    margin-right: 8
+    color: #f3f4f6
+    font: DMSans-14px-bold
+    text-wrap: false
+
+  Label
+    id: level
+    anchors.top: number.bottom
+    anchors.left: number.left
+    anchors.right: parent.right
+    margin-top: 8
+    margin-right: 8
+    color: #f3f4f6
+    font: DMSans-14px-bold
+
+PokedexDropRow < Panel
+  height: 42
+  margin-bottom: 6
+  background-color: #323232
+  border-width: 0
+
+  $on:
+    background-color: #212121
+
+  UIItem
+    id: item
+    size: 33 33
+    anchors.left: parent.left
+    anchors.verticalCenter: parent.verticalCenter
+    margin-left: 8
+    virtual: true
+
+  Label
+    id: name
+    anchors.top: parent.top
+    anchors.left: item.right
+    anchors.right: chance.left
+    margin-top: 6
+    margin-left: 8
+    margin-right: 8
+    color: #f3f4f6
+    font: DMSans-14px-bold
+
+  Label
+    id: count
+    anchors.left: name.left
+    anchors.right: name.right
+    anchors.bottom: parent.bottom
+    margin-bottom: 5
+    color: #c5c6c8
+    font: verdana-11px-rounded
+
+  Label
+    id: chance
+    width: 56
+    anchors.right: parent.right
+    anchors.verticalCenter: parent.verticalCenter
+    margin-right: 10
+    color: #EBA434
+    font: DMSans-14px-bold
+    text-align: right
+
+PokedexEntryRow < Panel
+  height: 28
+  margin-bottom: 5
+  padding-left: 8
+  padding-right: 8
+  border-width: 0
+  focusable: false
+
+  $hover:
+    background-color: #2a2a2a
+
+  $on:
+    background-color: #202736
+
+  Label
+    id: label
+    phantom: true
+    anchors.verticalCenter: parent.verticalCenter
+    anchors.left: parent.left
+    anchors.right: parent.right
+    color: #f4f4f5
+    font: verdana-11px-rounded
+
+MainWindow
+  id: pokedexWindow
+  size: 646 430
+  text:
+  visible: false
+  image-source: /images/ui/window
+  image-border: 20
+  padding: 12
+  @onEscape: self:hide()
+
+  PokedexCloseButton
+    id: closeButton
+    anchors.top: parent.top
+    anchors.right: parent.right
+    margin-top: 6
+    margin-right: 6
+    @onClick: self:getParent():hide()
+
+  Panel
+    id: leftPanel
+    anchors.top: parent.top
+    anchors.left: parent.left
+    anchors.bottom: parent.bottom
+    width: 334
+
+    Label
+      id: uiPokemonName
+      text: Pokemon
+      anchors.top: parent.top
+      anchors.left: parent.left
+      anchors.right: parent.right
+      margin-top: 4
+      margin-left: 4
+      margin-right: 42
+      height: 20
+      color: #f3f4f6
+      font: DMSans-16px-bold
+
+    Label
+      id: uiPokemonNumber
+      text: #000
+      anchors.top: uiPokemonName.bottom
+      anchors.left: uiPokemonName.left
+      anchors.right: parent.right
+      margin-top: 4
+      margin-right: 42
+      height: 14
+      color: #c5c6c8
+      font: verdana-11px-rounded
+
+    Label
+      id: uiCountLabel
+      text:
+      visible: false
+      anchors.top: uiPokemonNumber.bottom
+      anchors.left: uiPokemonNumber.left
+      anchors.right: parent.right
+      margin-top: 0
+      margin-right: 42
+      height: 0
+      color: #f0c64d
+      font: verdana-11px-rounded
+
+    Panel
+      id: typePanel
+      anchors.top: parent.top
+      anchors.right: parent.right
+      margin-top: 18
+      margin-right: 32
+      width: 58
+      height: 24
+      UIWidget
+        id: uiPokemonType1
+        anchors.left: parent.left
+        anchors.verticalCenter: parent.verticalCenter
+        size: 24 24
+        visible: false
+        image-color: white
+      UIWidget
+        id: uiPokemonType2
+        anchors.right: parent.right
+        anchors.verticalCenter: parent.verticalCenter
+        size: 24 24
+        visible: false
+        image-color: white
+
+    PokedexMiniIconButton
+      id: shinyToggleButton
+      anchors.top: uiPokemonNumber.bottom
+      anchors.left: parent.left
+      margin-top: 22
+      margin-left: 6
+      image-source: /images/game/pokedex/shiny
+      tooltip: Shiny
+      @onClick: modules.game_dex.toggleDexVariant()
+
+    Panel
+      id: artworkPanel
+      anchors.top: parent.top
+      anchors.horizontalCenter: parent.horizontalCenter
+      margin-top: 18
+      width: 218
+      height: 150
+
+      UIWidget
+        id: uiPokemonBackdrop
+        anchors.centerIn: parent
+        size: 116 116
+        image-source: /images/game/pokedex/slot
+        image-color: white
+
+      UIWidget
+        id: uiPokemonImage
+        anchors.centerIn: parent
+        size: 190 140
+        image-color: white
+
+    Panel
+      id: tabPanel
+      anchors.top: artworkPanel.bottom
+      anchors.horizontalCenter: artworkPanel.horizontalCenter
+      margin-top: 16
+      margin-left: 8
+      width: 190
+      height: 30
+      layout: horizontalBox
+
+      PokedexTabButton
+        id: infoTabButton
+        text:
+        image-clip: 102 0 34 28
+        @onClick: modules.game_dex.onDexTabChange('info')
+
+      PokedexTabButton
+        id: movesTabButton
+        text:
+        image-clip: 34 0 34 28
+        margin-left: 5
+        @onClick: modules.game_dex.onDexTabChange('moves')
+
+      PokedexTabButton
+        id: statsTabButton
+        text:
+        image-clip: 68 0 34 28
+        margin-left: 5
+        @onClick: modules.game_dex.onDexTabChange('stats')
+
+      PokedexTabButton
+        id: evoTabButton
+        text:
+        image-clip: 0 0 34 28
+        margin-left: 5
+        @onClick: modules.game_dex.onDexTabChange('evo')
+
+      PokedexTabButton
+        id: pokeballTabButton
+        text:
+        image-clip: 170 0 34 28
+        margin-left: 5
+        @onClick: modules.game_dex.onDexTabChange('pokeball')
+
+    Label
+      id: sectionTitle
+      text: Information
+      anchors.top: tabPanel.bottom
+      anchors.horizontalCenter: artworkPanel.horizontalCenter
+      margin-left: 8
+      margin-top: 16
+      color: #f0c64d
+      font: DMSans-14px-bold
+      text-align: center
+
+    Label
+      id: tabHintLabel
+      text: Ctrl+D to scan another pokemon
+      visible: false
+      anchors.top: sectionTitle.bottom
+      anchors.left: parent.left
+      anchors.right: parent.right
+      margin-top: 8
+      margin-left: 18
+      margin-right: 18
+      height: 0
+      color: #8d8d8d
+      font: verdana-11px-rounded
+      text-wrap: true
+
+    Label
+      id: uiPokemonLevel
+      text: Level: 0.
+      anchors.top: sectionTitle.bottom
+      anchors.left: parent.left
+      anchors.right: parent.right
+      margin-top: 14
+      margin-left: 18
+      margin-right: 18
+      color: #f3f4f6
+      text-wrap: true
+      font: verdana-11px-rounded
+
+    Label
+      id: uiPokemonAbility
+      text: Ability: None.
+      anchors.top: uiPokemonLevel.bottom
+      anchors.left: uiPokemonLevel.left
+      anchors.right: uiPokemonLevel.right
+      margin-top: 16
+      color: #f3f4f6
+      text-wrap: true
+      font: verdana-11px-rounded
+
+    Label
+      id: uiPokemonDescription
+      text: Scan this pokemon with the pokedex to unlock its information.
+      anchors.top: uiPokemonAbility.bottom
+      anchors.left: uiPokemonLevel.left
+      anchors.right: uiPokemonLevel.right
+      margin-top: 18
+      color: #f3f4f6
+      text-wrap: true
+      font: verdana-11px-rounded
+
+    Label
+      id: uiPokemonPrice
+      text: NPC Price ($0).
+      anchors.top: uiPokemonDescription.bottom
+      anchors.left: uiPokemonLevel.left
+      anchors.right: uiPokemonLevel.right
+      margin-top: 18
+      color: #f3f4f6
+      text-wrap: true
+      font: verdana-11px-rounded
+
+    ScrollablePanel
+      id: uiPokemonMovesPanel
+      anchors.top: sectionTitle.bottom
+      anchors.left: parent.left
+      anchors.right: parent.right
+      anchors.bottom: parent.bottom
+      margin-top: 14
+      margin-left: 18
+      margin-right: 26
+      margin-bottom: 18
+      layout: verticalBox
+      vertical-scrollbar: uiPokemonMovesScroll
+      visible: false
+
+    ScrollablePanel
+      id: uiPokemonStatsPanel
+      anchors.top: sectionTitle.bottom
+      anchors.left: parent.left
+      anchors.right: parent.right
+      anchors.bottom: parent.bottom
+      margin-top: 12
+      margin-left: 18
+      margin-right: 26
+      margin-bottom: 18
+      layout: verticalBox
+      vertical-scrollbar: uiPokemonStatsScroll
+      visible: false
+
+    ScrollablePanel
+      id: uiPokemonEvolutionsPanel
+      anchors.top: sectionTitle.bottom
+      anchors.left: parent.left
+      anchors.right: parent.right
+      anchors.bottom: parent.bottom
+      margin-top: 12
+      margin-left: 18
+      margin-right: 26
+      margin-bottom: 18
+      layout: verticalBox
+      vertical-scrollbar: uiPokemonEvolutionsScroll
+      visible: false
+
+    ScrollablePanel
+      id: uiPokemonDropsPanel
+      anchors.top: sectionTitle.bottom
+      anchors.left: parent.left
+      anchors.right: parent.right
+      anchors.bottom: parent.bottom
+      margin-top: 12
+      margin-left: 18
+      margin-right: 26
+      margin-bottom: 18
+      layout: verticalBox
+      vertical-scrollbar: uiPokemonDropsScroll
+      visible: false
+
+    VerticalScrollBar
+      id: uiPokemonMovesScroll
+      anchors.top: sectionTitle.bottom
+      anchors.right: parent.right
+      anchors.bottom: parent.bottom
+      margin-top: 14
+      margin-right: 8
+      margin-bottom: 18
+      step: 24
+      pixels-scroll: true
+
+    VerticalScrollBar
+      id: uiPokemonStatsScroll
+      anchors.top: sectionTitle.bottom
+      anchors.right: parent.right
+      anchors.bottom: parent.bottom
+      margin-top: 12
+      margin-right: 8
+      margin-bottom: 18
+      step: 24
+      pixels-scroll: true
+      visible: false
+
+    VerticalScrollBar
+      id: uiPokemonEvolutionsScroll
+      anchors.top: sectionTitle.bottom
+      anchors.right: parent.right
+      anchors.bottom: parent.bottom
+      margin-top: 12
+      margin-right: 8
+      margin-bottom: 18
+      step: 24
+      pixels-scroll: true
+      visible: false
+
+    VerticalScrollBar
+      id: uiPokemonDropsScroll
+      anchors.top: sectionTitle.bottom
+      anchors.right: parent.right
+      anchors.bottom: parent.bottom
+      margin-top: 12
+      margin-right: 8
+      margin-bottom: 18
+      step: 24
+      pixels-scroll: true
+      visible: false
+
+    Label
+      id: uiPokemonStatus
+      text: Status: unknown
+      visible: false
+      anchors.left: parent.left
+      anchors.top: parent.top
+
+  Panel
+    id: rightPanel
+    anchors.top: parent.top
+    anchors.right: parent.right
+    anchors.bottom: parent.bottom
+    anchors.left: leftPanel.right
+    margin-left: 18
+    margin-top: 22
+    margin-right: 8
+    margin-bottom: 6
+
+    Panel
+      id: listBackground
+      anchors.top: parent.top
+      anchors.left: parent.left
+      anchors.right: parent.right
+      anchors.bottom: searchTextEdit.top
+      margin-bottom: 12
+      padding-top: 10
+      padding-left: 10
+      padding-right: 10
+      padding-bottom: 10
+
+      ScrollablePanel
+        id: uiPokemonList
+        anchors.top: parent.top
+        anchors.left: parent.left
+        anchors.right: pokemonListScroll.left
+        anchors.bottom: parent.bottom
+        margin-right: 8
+        layout: verticalBox
+        vertical-scrollbar: pokemonListScroll
+
+      VerticalScrollBar
+        id: pokemonListScroll
+        anchors.top: parent.top
+        anchors.right: parent.right
+        anchors.bottom: parent.bottom
+        step: 24
+        pixels-scroll: true
+
+    TextEdit
+      id: searchTextEdit
+      anchors.left: parent.left
+      anchors.right: parent.right
+      anchors.bottom: parent.bottom
+      height: 40
+      padding-left: 10
+      padding-right: 10
+      image-source: /images/ui/window
+      image-border: 20
+      background-color: alpha
+      border-width: 0
+      color: #8f9398
+      font: verdana-11px-rounded
+      !placeholder: 'Name...'
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

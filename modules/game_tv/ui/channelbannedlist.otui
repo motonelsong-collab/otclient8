@@ -1,0 +1,63 @@
+MainWindow
+  id: channelBannedListWindow
+  !text: tr("Banned List")
+  width: 280
+  height: 320
+  @onEscape: self:hide()
+
+  Label
+    id: bannedPlayersLabel
+    !text: tr("Banned Players:")
+    text-auto-resize: true
+    anchors.left: parent.left
+    anchors.top: parent.top
+
+  UIButton
+    id: removeButton
+    !text: tr("Remove")
+    anchors.right: parent.right
+    anchors.verticalCenter: prev.verticalCenter
+    width: 100
+
+  VerticalScrollBar
+    id: bannedPanelScrollBar
+    step: 14
+    pixels-scroll: true
+    height: 180
+    anchors.right: parent.right
+    anchors.top: prev.bottom
+    margin-top: 5
+
+  ScrollablePanel
+    id: bannedPanel
+    vertical-scrollbar: bannedPanelScrollBar
+    anchors.top: prev.top
+    anchors.left: parent.left
+    anchors.right: prev.left
+    anchors.bottom: prev.bottom
+    padding: 1
+    auto-focus: first
+    layout:
+      type: verticalBox
+
+  TextEdit
+    id: banTextEdit
+    width: 140
+    anchors.left: prev.left
+    anchors.top: prev.bottom
+    margin-top: 10
+
+  UIButton
+    id: addButton
+    !text: tr("Add")
+    anchors.right: parent.right
+    anchors.top: prev.top
+    width: 100
+  
+  UIButton
+    id: cancelButton
+    !text: tr("Cancel")
+    width: 100
+    anchors.right: parent.right
+    anchors.bottom: parent.bottom
+    @onClick: self:getParent():hide()

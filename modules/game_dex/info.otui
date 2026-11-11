@@ -1,0 +1,30 @@
+PokedexPokemonDescription < Label
+  text-wrap: true
+  text-auto-resize: true
+  &limitText: 150
+
+Panel
+  id: panInfo
+  size: 200 200
+  margin-left: 3 
+
+  ScrollablePanel
+    id: uiDescriptionPanel
+    anchors.fill: parent
+    anchors.right: next.left
+    anchors.bottom: next.bottom
+    vertical-scrollbar: uiDescriptionScroll
+    layout: verticalBox
+
+  VerticalScrollBar
+    id: uiDescriptionScroll
+    anchors.top: parent.top
+    anchors.right: parent.right
+    anchors.bottom: parent.bottom
+    pixels-scroll: true
+    margin-right: -3
+    step: 14
+    pixels-scroll: true
+    visible: false
+
+

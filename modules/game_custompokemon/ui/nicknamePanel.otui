@@ -1,0 +1,55 @@
+
+Panel
+  id: nicknamePanel
+  padding: 12 12 0 0
+
+  Label-16px-Regular
+    anchors.top: parent.top
+    anchors.left: parent.left
+    text-auto-resize: true
+    !text: tr('Current name') .. ':'
+
+  Label-14px-Medium
+    id: name
+    anchors.top: parent.top
+    anchors.left: prev.right
+    text-auto-resize: true
+    margin: 2 0 0 8
+    text: Charizard
+
+  ButtonRedBase
+    id: erase
+    size: 24 24
+    anchors.top: parent.top
+    anchors.left: prev.right
+    margin: -2 0 0 8
+    icon: /images/game/icons/icon_trash_16px
+    !tooltip: tr("Erase nickname")
+    @onClick: modules.game_custompokemon.confirmUpdateNickname("")
+
+  Label-16px-Regular
+    anchors.top: prev.bottom
+    anchors.left: parent.left
+    margin-top: 8
+    text-auto-resize: true
+    !text: tr('New nickname') .. ':'
+
+  TextEdit
+    id: nickInput
+    anchors.top: prev.bottom
+    anchors.left: parent.left
+    anchors.right: parent.right
+    margin-top: 4
+    @onTextChange: |
+      function(self, text)
+        modules.game_custompokemon.isValidateNickname()
+      end
+
+  Label-13px-Regular
+    id: helperNickInput
+    anchors.top: prev.bottom
+    anchors.left: parent.left
+    anchors.right: parent.right
+    text-auto-resize: true
+    text-wrap: true
+    margin-top: 2

@@ -1,0 +1,8 @@
+Module
+  name: game_autoloot
+  description: Auto loot
+  sandboxed: true
+  dependencies: [ game_interface ]
+  scripts: [ autoloot ]
+  @onLoad: init()
+  @onUnload: terminate()

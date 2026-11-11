@@ -1,0 +1,99 @@
+NotificationMessage < Label
+  color: #f0f0f0
+  font: verdana-11px-rounded
+  text-wrap: true
+  text-auto-resize: true
+  text-align: center
+
+ItemNotify < UIItem
+  size: 34 34
+  virtual: true
+
+OutfitNotify < UICreature
+  size: 34 34
+
+ImageNotify < UIWidget
+  size: 34 34
+
+PanelNotify < Window
+  text: Captura
+  height: 110
+  anchors.left: parent.left
+  anchors.right: parent.right
+  phantom: false
+  focusable: false
+
+  $first:
+    anchors.top: parent.top
+
+  $!first:
+    anchors.top: prev.bottom
+    margin-top: 4
+
+  UIButton
+    id: closeButton
+    !tooltip: tr('Close')
+    size: 15 15
+    image-source: /images/ui/miniwindow_buttons
+    image-clip: 30 0 15 15
+    anchors.top: parent.top
+    anchors.right: parent.right
+    margin-top: 8
+    margin-right: 10
+    @onClick: self:getParent():destroy()
+
+    $hover:
+      image-clip: 30 15 15 15
+
+    $pressed:
+      image-clip: 30 30 15 15
+
+  UIProgressBar
+    id: progress
+    height: 6
+    anchors.top: parent.top
+    anchors.left: parent.left
+    anchors.right: parent.right
+    margin-top: 2
+    margin-left: 16
+    margin-right: 16
+    background-color: #2b7fff
+    value: 100
+    phantom: true
+
+  UIWidget
+    id: content
+    anchors.top: progress.bottom
+    anchors.left: parent.left
+    anchors.right: parent.right
+    margin-top: 4
+    margin-left: 16
+    margin-right: 16
+    size: 0 52
+    phantom: true
+
+  UIWidget
+    id: icon
+    size: 0 34
+    anchors.top: content.top
+    anchors.horizontalCenter: content.horizontalCenter
+    phantom: true
+
+    $on:
+      width: 34
+      height: 34
+
+  NotificationMessage
+    id: message
+    anchors.top: icon.bottom
+    anchors.left: content.left
+    anchors.right: content.right
+    margin-top: 1
+
+PanelNotification < Panel
+  id: panelNotification
+  width: 320
+  anchors.top: parent.top
+  anchors.bottom: gameBottomPanel.top
+  anchors.right: gameRightPanels.left
+  margin: 58 4 0 0

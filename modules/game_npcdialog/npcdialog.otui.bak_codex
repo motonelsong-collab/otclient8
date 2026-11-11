@@ -1,0 +1,63 @@
+UIWindow
+  id: npcDialog
+  size: 518 100
+  image-source: images/background
+  image-border: 50
+  anchors.verticalCenter: parent.verticalCenter
+  anchors.horizontalCenter: parent.horizontalCenter
+
+  NpcOutfitBase
+  NpcDialogName
+  UIScrollArea
+    id: PanelDialog
+    size: 410 35
+    anchors.top: baseOutfit.top
+    anchors.left: baseOutfit.right
+    margin-top: 35
+    margin-left: -12
+    DialogText
+      id: description
+      anchors.top: parent.top
+      anchors.bottom: parent.bottom
+      anchors.left: parent.left
+
+  UIScrollArea
+    id: PanelSelections
+    size: 410 0
+    anchors.top: PanelDialog.bottom
+    anchors.left: PanelDialog.left
+    anchors.right: PanelDialog.right
+    margin-top: 8
+    margin-bottom: 25
+    vertical-scrollbar: ScrollBarDialog
+    auto-focus: first
+    layout:
+      type: verticalBox
+      spacing: 3
+  VerticalScrollBar
+    id: ScrollBarDialog
+    anchors.top: PanelSelections.top
+    anchors.bottom: parent.bottom
+    anchors.left: PanelSelections.right
+    margin-left: 5
+    margin-bottom: 35
+    step: 36
+    pixels-scroll: true
+    $!on:
+      width: 0
+
+  UIButton
+    size: 12 12
+    image-source: /images/ui/close
+    image-color: #ffffff
+    anchors.top: parent.top
+    anchors.right: parent.right
+    margin-top: 15
+    margin-right: 15
+    change-cursor-image: true
+    cursor: pointer
+    @onClick: close()
+    $hover:
+      image-color: #ff0000
+    $pressed:
+      image-color: #a50000
