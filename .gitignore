@@ -1,0 +1,16 @@
+build/
+.vs/
+Debug/
+Release/
+OpenGL/
+DirectX/
+*.user
+*.obj
+*.pdb
+*.ilk
+*.exe
+*.dll
+*.lib
+data/
+modules/
+mods/

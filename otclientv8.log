@@ -1,0 +1,8 @@
+GPU NVIDIA GeForce RTX 3060/PCIe/SSE2 (NVIDIA Corporation)
+OpenGL 4.6.0 NVIDIA 595.79
+[Atlas] Texture size is: 4096x4096 (max: 32768x32768)
+FATAL ERROR: Critical lua error!
+C++ call failed:
+unknown|fatal error
+stack traceback:
+	[builtin#142]: at 0x0093f290
